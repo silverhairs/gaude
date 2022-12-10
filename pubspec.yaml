@@ -1,0 +1,73 @@
+name: gaude
+description: An app to track your expenses
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.5 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  freezed_annotation: ^2.2.0
+  json_annotation: ^4.7.0
+  flutter_bloc: ^8.1.1
+  equatable: ^2.0.5
+  get_it: ^7.2.0
+  firebase_core: ^2.4.0
+  firebase_auth: ^4.2.0
+  google_sign_in: ^5.4.2
+  google_fonts: ^3.0.1
+  firebase_crashlytics: ^3.0.7
+  ionicons: ^0.2.1
+  hive_flutter: ^1.1.0
+  logger: ^1.1.0
+  collection: ^1.16.0
+  flutter_svg: ^1.1.6
+  another_flushbar: ^1.12.29
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  freezed: ^2.2.0
+  build_runner: ^2.3.0
+  hive_generator: ^1.1.3
+  json_serializable: ^6.5.4
+  mocktail: ^0.3.0
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
+
+index_generator:
+  exclude:
+    - '**.part.dart'
+    - '**.g.dart'
+    - '**.freezed.dart'
+    - '**/bloc/**_event.dart'
+    - '**/bloc/**_state.dart'
+    - '**/cubit/**_state.dart'
+  indexes:
+    - path: lib/src/shared
+      include:
+        - '**'
+      name: shared
+      library: shared
+    - path: lib/src/features
+      include:
+        - '**'
+      name: features
+      library: features
+
+    - path: lib/src/di
+      include:
+        - '**'
+      name: di
+      library: di
