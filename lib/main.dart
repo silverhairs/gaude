@@ -18,9 +18,9 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Injector.configure();
 
-  final autditor = inject<CrashReportRepository>();
-  FlutterError.onError = autditor.recordFlutterError;
+  final auditor = inject<CrashReportRepository>();
+  FlutterError.onError = auditor.recordFlutterError;
   Bloc.observer = LogBlocObserver();
 
-  await autditor.startAppWithCrashReporting(const App());
+  await auditor.startAppWithCrashReporting(const App());
 }

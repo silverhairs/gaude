@@ -68,7 +68,10 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ),
                 const Expanded(child: SizedBox()),
-                ...widget.pages.keys.toList().sublist(2).map(
+                ...widget.pages.keys
+                    .toList()
+                    .sublist(widget.pages.length ~/ 2)
+                    .map(
                       (tab) => Expanded(
                         key: ValueKey(tab),
                         child: _buildTabButton(
