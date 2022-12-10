@@ -1,4 +1,4 @@
-name: broksheet
+name: build
 
 on: [pull_request, push]
 

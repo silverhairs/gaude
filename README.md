@@ -1,5 +1,7 @@
 # Gaude
 
+[![build](https://github.com/silverhairs/gaude/actions/workflows/build.yaml/badge.svg?branch=main)](https://github.com/silverhairs/gaude/actions/workflows/build.yaml)
+
 An Expense Tracking App built with Flutter and Firebase.  
 The UI of this app is inspired by [this](https://www.figma.com/community/file/998557875473123405) figma design by [@brajaomar](https://www.figma.com/@brajaomar).
 
