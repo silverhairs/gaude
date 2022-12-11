@@ -18,6 +18,7 @@ class CrashReportRepositoryImpl implements CrashReportRepository {
   Future<void> recordException(Failure failure, {bool isFatal = false}) async {
     try {
       await _source.recordException(failure, isFatal: isFatal);
+      _logger.d(failure, failure.error, failure.stackTrace);
     } on GaudeException catch (e, s) {
       _logger.e(e.message, e, s);
     }
@@ -27,14 +28,15 @@ class CrashReportRepositoryImpl implements CrashReportRepository {
   Future<void> recordFlutterError(FlutterErrorDetails details) async {
     try {
       await _source.recordFlutterError(details);
+      _logger.d(details, details.exception, details.stack);
     } on GaudeException catch (e, s) {
       _logger.e(e.message, e, s);
     }
   }
 
   @override
-  Future<void> startAppWithCrashReporting(Widget app) async {
-    runZonedGuarded(() => runApp(app), (e, s) {
+  Future<void> runZonedGuardedWithCrashReport(fn) async {
+    runZonedGuarded(fn, (e, s) {
       final failure = Failure(e, s);
       recordException(failure, isFatal: true);
     });

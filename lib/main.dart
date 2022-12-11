@@ -22,5 +22,5 @@ Future<void> main() async {
   FlutterError.onError = auditor.recordFlutterError;
   Bloc.observer = LogBlocObserver();
 
-  await auditor.startAppWithCrashReporting(const App());
+  await auditor.runZonedGuardedWithCrashReport(() => runApp(const App()));
 }
