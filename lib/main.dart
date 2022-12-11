@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gaude/firebase_options.dart';
+import 'package:gaude/firebase_options_dev.dart';
 import 'package:gaude/src/app/bloc_observer.dart';
 import 'package:gaude/src/di/di.dart';
 import 'package:gaude/src/features/features.dart';
