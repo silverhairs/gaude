@@ -2,8 +2,7 @@
 
 [![build](https://github.com/silverhairs/gaude/actions/workflows/build.yaml/badge.svg?branch=main)](https://github.com/silverhairs/gaude/actions/workflows/build.yaml)
 
-An Expense Tracking App built with Flutter and Firebase.  
-The UI of this app is inspired by [this](https://www.figma.com/community/file/998557875473123405) figma design by [@brajaomar](https://www.figma.com/@brajaomar).
+An Expense Tracking App built with Flutter and Firebase. The UI of this app is inspired by [this](https://www.figma.com/community/file/998557875473123405) figma design by [@brajaomar](https://www.figma.com/@brajaomar).
 
 **Disclamer**: This app is not production ready and I can't promise I will ever finish building it.
 
@@ -18,6 +17,14 @@ Flavors configurations have not yet been done for iOS.
 
 ```shell
 $ flutter run --flavor dev lib/main.dart
+```
+
+### Testing
+
+The testing approach in this app is Full Tree Widget Testing which is well described by [@freewheelnat](https://github.com/freewheelnat) in [this](https://cogitas.net/unleash-full-power-flutter-widget-tests/) article. Basically, we spin up a new instance of the app for each test and interact with it as a user would and then make assertions that all the requirements are met. We mock Repositories or Data Sources to avoid making network calls or interacting with the database and inject the mocks to the higher layers of the app.
+
+```shell
+$ flutter test
 ```
 
 For help getting started with Flutter development, view the
