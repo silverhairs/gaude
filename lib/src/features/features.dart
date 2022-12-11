@@ -14,6 +14,7 @@ export 'authentication/logic/repositories/account_credential_repository_impl.dar
 export 'authentication/logic/repositories/authentication_repository.dart';
 export 'authentication/logic/repositories/authentication_repository_impl.dart';
 export 'authentication/presentation/pages/login_page.dart';
+export 'authentication/presentation/widgets/authentication_failure_listener.dart';
 export 'budget/presentation/pages/budget_page.dart';
 export 'crash_report/data/sources/crash_report_crashlytics_data_source.dart';
 export 'crash_report/data/sources/crash_report_data_source.dart';

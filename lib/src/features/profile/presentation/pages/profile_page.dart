@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gaude/src/app/app.dart';
+import 'package:gaude/src/features/features.dart';
 import 'package:gaude/src/shared/shared.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -25,11 +27,13 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Text(
-              'Logout',
-              textAlign: TextAlign.center,
-            ),
+          children: [
+            TextButton(
+              onPressed: () => context.read<AuthenticationBloc>().add(
+                    const AuthenticationLogout(),
+                  ),
+              child: const Text('Logout'),
+            )
           ],
         ),
       ),

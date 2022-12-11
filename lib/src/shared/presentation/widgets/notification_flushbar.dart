@@ -12,7 +12,7 @@ class NotificationFlushbar extends Flushbar {
     super.title,
     bool isError = true,
   }) : super(
-          duration: const Duration(seconds: 3),
+          duration: activeDuration,
           animationDuration: kThemeAnimationDuration,
           backgroundColor: isError ? AppColors.red20 : AppColors.green20,
           messageColor: AppColors.dark60,
@@ -22,4 +22,6 @@ class NotificationFlushbar extends Flushbar {
           margin: const EdgeInsets.all(Dimens.outerPadding),
           padding: const EdgeInsets.all(Dimens.outerPadding),
         );
+
+  static const Duration activeDuration = Duration(seconds: 3);
 }

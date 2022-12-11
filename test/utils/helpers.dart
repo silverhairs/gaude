@@ -11,26 +11,42 @@ import 'mocks/crash_report/mocks.dart';
 import 'mocks/interfaces.dart';
 
 Future<void> openMainPage(WidgetTester tester) async {
-  await startAppWithMocks(() async {
-    await tester.pumpWidget(const App());
-  }, stubs: [
-    CrashReportRepositoryStubs(),
-  ]);
+  await startAppWithMocks(
+      runner: () async => await tester.pumpWidget(const App()),
+      stubs: [
+        CrashReportRepositoryStubs(),
+      ]);
 
   await tester.pumpAndSettle(const Duration(seconds: 1));
 }
 
-Future<void> startAppWithMocks(
-  AsyncCallback runner, {
+Future<void> startAppWithMocks({
+  AsyncCallback? runner,
+  WidgetTester? tester,
+  bool authenticated = true,
   List<StubsManager> stubs = const [],
 }) async {
+  assert(
+    !(runner == null && tester == null),
+    'Either runner or tester must be provided',
+  );
   try {
     _injectMocks(stubs: stubs);
     // ignore: empty_catches
   } on ArgumentError {
     // An ArgumentError is thrown when the injector is already configured.
   }
-  await runner();
+  if (!authenticated) {
+    AuthenticationRepositoryStubs(inject()).authStateChangesWithNull();
+  } else {
+    AuthenticationRepositoryStubs(inject()).authStateChangesWithAccount();
+  }
+  if (runner != null) {
+    await runner();
+    return;
+  }
+  await tester!.pumpWidget(const App());
+  await tester.pumpAndSettle(const Duration(seconds: 1));
 }
 
 void _injectMocks({List<StubsManager> stubs = const []}) {

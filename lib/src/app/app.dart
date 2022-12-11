@@ -74,35 +74,23 @@ class _AppView extends StatelessWidget {
           ),
         ),
       ),
-      home: BlocConsumer<AuthenticationBloc, AuthenticationState>(
-        listener: (context, state) {
-          state.maybeWhen(
-            failed: (failure) {
-              final error = failure.error;
-              final message = error is GaudeException
-                  ? error.message
-                  : 'Check your internet connection and try again!';
-              NotificationFlushbar(
-                title: 'Sign In Failed',
-                message: message,
-              ).show(context);
-            },
-            orElse: () {},
-          );
-        },
-        builder: (context, state) => state.maybeWhen<Widget>(
-          loading: () => const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
+      home: MultiBlocListener(
+        listeners: [AuthenticationFailureListener()],
+        child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+          builder: (context, state) => state.maybeWhen<Widget>(
+            loading: () => const Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            ),
+            authenticated: (account) => const MainPage(
+              pages: {
+                BottomBarTab.home: HomePage(),
+                BottomBarTab.transactions: TransacionsPage(),
+                BottomBarTab.budget: BudgetPage(),
+                BottomBarTab.profile: ProfilePage(),
+              },
+            ),
+            orElse: () => const LoginPage(),
           ),
-          authenticated: (account) => const MainPage(
-            pages: {
-              BottomBarTab.home: HomePage(),
-              BottomBarTab.transactions: TransacionsPage(),
-              BottomBarTab.budget: BudgetPage(),
-              BottomBarTab.profile: ProfilePage(),
-            },
-          ),
-          orElse: () => const LoginPage(),
         ),
       ),
     );
