@@ -94,57 +94,15 @@ class _AppView extends StatelessWidget {
           loading: () => const Scaffold(
             body: Center(child: CircularProgressIndicator()),
           ),
-          authenticated: (account) => MainPage(
+          authenticated: (account) => const MainPage(
             pages: {
-              BottomBarTab.home: WelcomePage(account: account),
-              BottomBarTab.transactions: Container(color: AppColors.violet40),
-              BottomBarTab.budget: Container(color: AppColors.green40),
-              BottomBarTab.profile: Container(color: AppColors.red40),
+              BottomBarTab.home: HomePage(),
+              BottomBarTab.transactions: TransacionsPage(),
+              BottomBarTab.budget: BudgetPage(),
+              BottomBarTab.profile: ProfilePage(),
             },
           ),
           orElse: () => const LoginPage(),
-        ),
-      ),
-    );
-  }
-}
-
-class WelcomePage extends StatelessWidget {
-  const WelcomePage({super.key, required this.account});
-
-  final Account account;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Welcome'),
-        actions: [
-          IconButton(
-            icon: const Icon(Ionicons.notifications),
-            onPressed: () async => context.navigateTo(const NotificationPage()),
-          ),
-        ],
-      ),
-      body: Container(
-        padding: const EdgeInsets.all(Dimens.outerPadding),
-        height: MediaQuery.of(context).size.height,
-        width: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Welcome ${account.name}'),
-            const SizedBox(height: Dimens.largePadding),
-            TextButton(
-              onPressed: () {
-                context.read<AuthenticationBloc>().add(
-                      const AuthenticationLogout(),
-                    );
-              },
-              child: const Text('Logout'),
-            )
-          ],
         ),
       ),
     );

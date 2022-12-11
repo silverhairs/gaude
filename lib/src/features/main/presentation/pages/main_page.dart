@@ -8,6 +8,8 @@ class MainPage extends StatefulWidget {
 
   final Map<BottomBarTab, Widget> pages;
 
+  static const String floatingActionButtonKey = 'main_page_fab';
+
   @override
   State<MainPage> createState() => _MainPageState();
 }
@@ -45,7 +47,7 @@ class _MainPageState extends State<MainPage> {
             onWillPop: () async => Navigator.maybePop(
               _navigatorKeys[tab]!.currentState!.context,
             ),
-            child: IndexedStack(
+            child: CustomIndexedStack(
               index: widget.pages.keys.toList().indexOf(tab),
               children: [...widget.pages.map(_wrapWithNavigator).values],
             ),
@@ -93,6 +95,7 @@ class _MainPageState extends State<MainPage> {
               shape: BoxShape.circle,
             ),
             child: FloatingActionButton(
+              key: const ValueKey(MainPage.floatingActionButtonKey),
               backgroundColor: AppColors.violet,
               onPressed: () {
                 // TODO: Implement me.

@@ -4,6 +4,7 @@ library shared;
 
 export 'models/failure.dart';
 export 'models/result.dart';
+export 'presentation/widgets/custom_indexed_stack.dart';
 export 'presentation/widgets/injected_bloc_provider.dart';
 export 'presentation/widgets/notification_flushbar.dart';
 export 'utils/app_images.dart';

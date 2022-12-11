@@ -14,10 +14,14 @@ export 'authentication/logic/repositories/account_credential_repository_impl.dar
 export 'authentication/logic/repositories/authentication_repository.dart';
 export 'authentication/logic/repositories/authentication_repository_impl.dart';
 export 'authentication/presentation/pages/login_page.dart';
+export 'budget/presentation/pages/budget_page.dart';
 export 'crash_report/data/sources/crash_report_crashlytics_data_source.dart';
 export 'crash_report/data/sources/crash_report_data_source.dart';
 export 'crash_report/logic/repositories/crash_report_repository.dart';
 export 'crash_report/logic/repositories/crash_report_repository_impl.dart';
+export 'home/presentation/pages/home_page.dart';
 export 'main/logic/cubit/bottom_tab_navigation_cubit.dart';
 export 'main/logic/entities/bottom_bar_tab.dart';
 export 'main/presentation/pages/main_page.dart';
+export 'profile/presentation/pages/profile_page.dart';
+export 'transactions/presentation/pages/transactions_page.dart';

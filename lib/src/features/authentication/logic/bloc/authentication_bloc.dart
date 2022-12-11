@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:gaude/src/features/features.dart';
@@ -23,7 +24,11 @@ class AuthenticationBloc
       // ignore: invalid_use_of_visible_for_testing_member
       emit(_getStateFromResult(result));
     });
+
+    stream.listen(consoleLog);
   }
+
+  void consoleLog(Object? object) => debugPrint(object.toString());
 
   final AccountCredentialRepository _accountCredentialRepository;
   final AuthenticationRepository _authenticationRepository;
