@@ -53,8 +53,8 @@ Future<void> startAppWithMocks({
 /// Configures the injector for testing.
 ///
 /// The configurations in this function must stay in this order. Moving one registration
-/// to another place may cause unresolved dependency expcetions in the test. When
-/// registering a new depedenency, make sure you are not adding it after another
+/// to another place may cause unresolved dependency exceptions in the test. When
+/// registering a new depedenency, make sure you are not doing it after another
 /// dependency that depends on it. For example:
 ///
 /// ```dart
@@ -66,15 +66,15 @@ Future<void> startAppWithMocks({
 ///
 /// class B {}
 ///
-/// // When registering A and N in [_configureInjector], the order must be:
+/// // When registering A and B in [_configureInjector], the order must be:
 /// container
 ///   ..registerSingleton<B>(B())
 ///   ..registerSingleton<A>(A(inject()));
 /// ```
 ///
-/// Another rule is to always register [Bloc] and [Cubit] objects as factories
-/// so that a new instance gets created for each test, this will prevent running
-/// into issues where a bloc or cubit was closed by a previous test and cannot
+/// Another thing to keep in mind is to always register [Bloc] and [Cubit] objects
+/// as factories so that a new instance gets created for each test, this will prevent running
+/// into issues where a bloc or cubit gets closed by a previous test and is not able to
 /// emit new states.
 ///
 void _configureInjector({List<StubsManager> stubs = const []}) {

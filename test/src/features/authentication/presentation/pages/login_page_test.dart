@@ -42,8 +42,12 @@ void main() {
         await tester.tap(find.text('Continue with Google'));
         await tester.pumpAndSettle();
 
-        verify(inject<AccountCredentialRepository>().getCredential).called(1);
-        verify(() => inject<AuthenticationRepository>().login(any())).called(1);
+        verify(inject<AccountCredentialRepository>().getCredential).called(
+          greaterThan(0),
+        );
+        verify(() => inject<AuthenticationRepository>().login(any())).called(
+          greaterThan(0),
+        );
       },
     );
 
