@@ -15,14 +15,25 @@ class AuthenticationBloc
   AuthenticationBloc({
     required AccountCredentialRepository accountCredentialRepository,
     required AuthenticationRepository authenticationRepository,
+    required AppSettingsRepository appSettingsRepository,
   })  : _authenticationRepository = authenticationRepository,
         _accountCredentialRepository = accountCredentialRepository,
         super(const _Initial()) {
     on<AuthenticationEvent>(_handleEvent);
-    _authenticationRepository.accountAuthStateChanges.listen((result) {
-      // ignore: invalid_use_of_visible_for_testing_member
-      emit(_getStateFromResult(result));
-    });
+    appSettingsRepository.getAppSettings().then(
+          (result) => result.maybeWhen(
+            (settings) {
+              if (settings.onboardingStatus != OnboardingStatus.notStarted) {
+                _authenticationRepository.accountAuthStateChanges
+                    .listen((result) {
+                  // ignore: invalid_use_of_visible_for_testing_member
+                  emit(_getStateFromResult(result));
+                });
+              }
+            },
+            orElse: () {},
+          ),
+        );
   }
 
   final AccountCredentialRepository _accountCredentialRepository;

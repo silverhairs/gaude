@@ -16,15 +16,17 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        InjectedBlocProvider<AuthenticationBloc>(),
         InjectedBlocProvider<BottomTabNavigationCubit>(),
+        InjectedBlocProvider<AppSettingsCubit>(
+            onCreate: (cubit) => cubit.loadAppSettings()),
+        InjectedBlocProvider<AuthenticationBloc>(),
       ],
       child: const _AppView(),
     );
   }
 }
 
-class _AppView extends StatelessWidget {
+class _AppView extends StatelessWidget with WidgetsBindingObserver {
   const _AppView({Key? key}) : super(key: key);
 
   @override
@@ -75,7 +77,16 @@ class _AppView extends StatelessWidget {
         ),
       ),
       home: MultiBlocListener(
-        listeners: [AuthenticationFailureListener()],
+        listeners: [
+          AuthenticationFailureListener(),
+          BlocListener<AuthenticationBloc, AuthenticationState>(
+            listenWhen: (_, state) => state.maybeWhen<bool>(
+              authenticated: (_) => true,
+              orElse: () => false,
+            ),
+            listener: _updateOnboardingStatus,
+          )
+        ],
         child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) => state.maybeWhen<Widget>(
             loading: () => const Scaffold(
@@ -93,6 +104,30 @@ class _AppView extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  void _updateOnboardingStatus(
+    BuildContext context,
+    AuthenticationState state,
+  ) {
+    state.maybeWhen<void>(
+      authenticated: (_) {
+        final appSettingsCubit = context.read<AppSettingsCubit>();
+        appSettingsCubit.state.maybeWhen<void>(
+          loaded: (settings) {
+            if (settings.onboardingStatus != OnboardingStatus.completed) {
+              appSettingsCubit.saveAppSettings(
+                settings.copyWith(
+                  onboardingStatus: OnboardingStatus.completed,
+                ),
+              );
+            }
+          },
+          orElse: () {},
+        );
+      },
+      orElse: () {},
     );
   }
 }
