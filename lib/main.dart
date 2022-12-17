@@ -19,10 +19,21 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Injector.configure();
 
-  await inject<Database>().start();
   final auditor = inject<CrashReportRepository>();
   FlutterError.onError = auditor.recordFlutterError;
   Bloc.observer = LogBlocObserver();
+  await _setupLocalDatabase();
 
   await auditor.runZonedGuardedWithCrashReport(() => runApp(const App()));
+}
+
+Future<void> _setupLocalDatabase() async {
+  final db = inject<Database>();
+  if (db is ExternalConnection) {
+    try {
+      await (db as ExternalConnection).start();
+    } catch (e, s) {
+      await inject<CrashReportRepository>().recordException(Failure(e, s));
+    }
+  }
 }

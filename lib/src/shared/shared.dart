@@ -7,6 +7,7 @@ export 'db/exceptions.dart';
 export 'db/hive/hive_database.dart';
 export 'db/hive/hive_storage.dart';
 export 'db/storage.dart';
+export 'interfaces/external_connection.dart';
 export 'models/failure.dart';
 export 'models/result.dart';
 export 'presentation/widgets/custom_indexed_stack.dart';

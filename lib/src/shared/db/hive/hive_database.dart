@@ -4,9 +4,10 @@ import 'package:gaude/src/shared/db/database.dart';
 import 'package:gaude/src/shared/db/exceptions.dart';
 import 'package:gaude/src/shared/db/hive/hive_storage.dart';
 import 'package:gaude/src/shared/db/storage.dart';
+import 'package:gaude/src/shared/interfaces/external_connection.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-class HiveDatabase implements Database {
+class HiveDatabase implements Database, ExternalConnection {
   HiveDatabase([HiveInterface? hive]) : _hive = hive ?? Hive;
   final HiveInterface _hive;
   bool _isActive = false;
