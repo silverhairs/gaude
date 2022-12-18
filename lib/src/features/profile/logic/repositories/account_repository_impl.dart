@@ -24,7 +24,6 @@ class AccountRepositoryImpl implements AccountRepository {
     try {
       return Result(await _source.getAccount(id));
     } on DataSourceException catch (e, s) {
-      print('Failed: ${e.message}');
       return Result.failure(Failure(e, s));
     }
   }

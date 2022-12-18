@@ -36,8 +36,8 @@ class AccountFirestoreDataSource implements AccountDataSource {
     try {
       final doc = await _getDocument(id);
       if (doc.exists) {
-        final data = doc.data();
-        return Account.fromJson(data!);
+        final data = doc.data() as Map<String, dynamic>;
+        return Account.fromJson(data);
       }
     } on FirebaseException catch (e) {
       throw DataSourceException(
@@ -67,8 +67,8 @@ class AccountFirestoreDataSource implements AccountDataSource {
     }
   }
 
-  Future<DocumentSnapshot<Map<String, dynamic>>> _getDocument(String id) async {
-    final doc = await _firestore.doc(id).get();
+  Future<DocumentSnapshot> _getDocument(String id) async {
+    final doc = await _collection.doc(id).get();
     return doc;
   }
 }
