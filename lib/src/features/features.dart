@@ -31,6 +31,7 @@ export 'profile/logic/cubit/account_cubit.dart';
 export 'profile/logic/repositories/account_repository.dart';
 export 'profile/logic/repositories/account_repository_impl.dart';
 export 'profile/presentation/pages/profile_page.dart';
+export 'profile/presentation/widgets/profile_list_time.dart';
 export 'settings/data/models/app_settings.dart';
 export 'settings/data/sources/app_settings_data_source.dart';
 export 'settings/data/sources/app_settings_local_data_source.dart';
