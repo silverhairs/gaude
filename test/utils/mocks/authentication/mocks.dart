@@ -47,7 +47,10 @@ class AuthenticationRepositoryStubs implements StubsManager {
     when(() => _repository.login(any())).thenAnswer(
       (_) async => Result.failure(
         Failure(
-          const DataSourceException('failed to login'),
+          const DataSourceException(
+            'failed to login',
+            stackTrace: StackTrace.empty,
+          ),
           StackTrace.current,
         ),
       ),
@@ -64,7 +67,10 @@ class AuthenticationRepositoryStubs implements StubsManager {
     when(() => _repository.logout()).thenAnswer(
       (_) async => Result.failure(
         Failure(
-          const DataSourceException('failed to logout'),
+          const DataSourceException(
+            'failed to logout',
+            stackTrace: StackTrace.empty,
+          ),
           StackTrace.current,
         ),
       ),
@@ -113,7 +119,10 @@ class AccountCredentialRepositoryStubs implements StubsManager {
     when(_repository.getCredential).thenAnswer(
       (_) async => Result.failure(
         Failure(
-          const DataSourceException('failed to get credential'),
+          const DataSourceException(
+            'failed to get credential',
+            stackTrace: StackTrace.empty,
+          ),
           StackTrace.current,
         ),
       ),
@@ -130,7 +139,10 @@ class AccountCredentialRepositoryStubs implements StubsManager {
     when(_repository.invalidateCrendential).thenAnswer(
       (_) async => Result.failure(
         Failure(
-          const DataSourceException('failed to invalidate credential'),
+          const DataSourceException(
+            'failed to invalidate credential',
+            stackTrace: StackTrace.empty,
+          ),
           StackTrace.current,
         ),
       ),

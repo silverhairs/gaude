@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:gaude/src/di/di.dart';
@@ -19,6 +20,7 @@ abstract class Injector {
     _configureAppSettings();
     _configureFirebase();
     _configureCrashReport();
+    _configureProfile();
     _configureAuthentication();
   }
 
@@ -31,7 +33,8 @@ abstract class Injector {
   static void _configureFirebase() {
     _container
       ..registerSingleton(FirebaseCrashlytics.instance)
-      ..registerSingleton(FirebaseAuth.instance);
+      ..registerSingleton(FirebaseAuth.instance)
+      ..registerSingleton(FirebaseFirestore.instance);
   }
 
   static void _configureCrashReport() {
@@ -80,5 +83,16 @@ abstract class Injector {
         () => AppSettingsRepositoryImpl(inject()),
       )
       ..registerLazySingleton(() => AppSettingsCubit(inject()));
+  }
+
+  static void _configureProfile() {
+    _container
+      ..registerLazySingleton<AccountDataSource>(
+        () => AccountFirestoreDataSource(inject()),
+      )
+      ..registerLazySingleton<AccountRepository>(
+        () => AccountRepositoryImpl(inject()),
+      )
+      ..registerLazySingleton(() => AccountCubit(inject()));
   }
 }

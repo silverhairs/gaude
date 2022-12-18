@@ -24,7 +24,10 @@ class CrashReportCrashlyticsDataSource implements CrashReportDataSource {
         fatal: isFatal,
       );
     } on Exception {
-      throw const DataSourceException('Crashlytics Failed to record error');
+      throw DataSourceException(
+        'Crashlytics Failed to record error',
+        stackTrace: StackTrace.current,
+      );
     }
   }
 
@@ -34,8 +37,9 @@ class CrashReportCrashlyticsDataSource implements CrashReportDataSource {
     try {
       await _crashlytics.recordFlutterFatalError(details);
     } on Exception {
-      throw const DataSourceException(
+      throw DataSourceException(
         'Crashlytics Failed to record Flutter error',
+        stackTrace: StackTrace.current,
       );
     }
   }

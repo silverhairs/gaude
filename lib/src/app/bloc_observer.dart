@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gaude/src/di/di.dart';
 import 'package:gaude/src/features/features.dart';
 import 'package:gaude/src/shared/models/failure.dart';
+import 'package:gaude/src/shared/utils/exceptions.dart';
 import 'package:logger/logger.dart';
 
 class LogBlocObserver extends BlocObserver {
@@ -10,10 +11,12 @@ class LogBlocObserver extends BlocObserver {
 
   @override
   void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
-    inject<CrashReportRepository>().recordException(
-      Failure(error, stackTrace),
-    );
-    _logger.e(bloc, error, stackTrace);
+    final failure = error is GaudeException
+        ? error.toFailure()
+        : Failure(error, stackTrace);
+
+    inject<CrashReportRepository>().recordException(failure);
+    _logger.e(bloc, failure.error, failure.stackTrace);
     super.onError(bloc, error, stackTrace);
   }
 

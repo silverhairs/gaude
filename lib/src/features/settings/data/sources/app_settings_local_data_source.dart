@@ -23,7 +23,10 @@ class AppSettingsLocalDataSource implements AppSettingsDataSource {
     } on DatabaseException {
       rethrow;
     } catch (e, s) {
-      throw DataSourceException('Failed to get app settings: $e\n$s');
+      throw DataSourceException(
+        'Failed to get app settings: $e',
+        stackTrace: s,
+      );
     }
   }
 
@@ -35,7 +38,10 @@ class AppSettingsLocalDataSource implements AppSettingsDataSource {
     } on DatabaseException {
       rethrow;
     } catch (e, s) {
-      throw DataSourceException('Failed to get app settings: $e\n$s');
+      throw DataSourceException(
+        'Failed to get app settings: $e',
+        stackTrace: s,
+      );
     }
   }
 }

@@ -15,7 +15,7 @@ void main() {
   late final CrashReportDataSource dataSource;
   late final Logger logger;
   final failure = Failure(
-    const DataSourceException('testing error'),
+    DataSourceException('testing error', stackTrace: StackTrace.current),
     StackTrace.current,
   );
   final flutterError = FlutterErrorDetails(

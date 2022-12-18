@@ -13,8 +13,8 @@ class HiveStorage implements Storage<Map<String, dynamic>> {
   Future<void> close() async {
     try {
       await _box.close();
-    } catch (e) {
-      throw DatabaseException('$e');
+    } catch (e, s) {
+      throw DatabaseException('$e', stackTrace: s);
     }
   }
 
@@ -22,8 +22,8 @@ class HiveStorage implements Storage<Map<String, dynamic>> {
   Future<void> delete(String key) async {
     try {
       await _box.delete(key);
-    } catch (e) {
-      throw DatabaseException('$e');
+    } catch (e, s) {
+      throw DatabaseException('$e', stackTrace: s);
     }
   }
 
@@ -31,8 +31,8 @@ class HiveStorage implements Storage<Map<String, dynamic>> {
   Future<void> deleteAll() async {
     try {
       await _box.clear();
-    } catch (e) {
-      throw DatabaseException('$e');
+    } catch (e, s) {
+      throw DatabaseException('$e', stackTrace: s);
     }
   }
 
@@ -42,7 +42,7 @@ class HiveStorage implements Storage<Map<String, dynamic>> {
       final data = _box.get(key) ?? '{}';
       return json.decode(data) as Map<String, dynamic>;
     } catch (e, s) {
-      throw DatabaseException('$e\n$s');
+      throw DatabaseException('$e', stackTrace: s);
     }
   }
 
@@ -52,8 +52,8 @@ class HiveStorage implements Storage<Map<String, dynamic>> {
       return _box.values
           .map((value) => json.decode(value) as Map<String, dynamic>)
           .toList();
-    } catch (e) {
-      throw DatabaseException('$e');
+    } catch (e, s) {
+      throw DatabaseException('$e', stackTrace: s);
     }
   }
 
@@ -61,8 +61,8 @@ class HiveStorage implements Storage<Map<String, dynamic>> {
   Future<void> write(String key, Map<String, dynamic> data) async {
     try {
       await _box.put(key, json.encode(data));
-    } catch (e) {
-      throw DatabaseException('$e');
+    } catch (e, s) {
+      throw DatabaseException('$e', stackTrace: s);
     }
   }
 }

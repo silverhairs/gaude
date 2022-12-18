@@ -43,9 +43,15 @@ class AuthenticationFirebaseDataSource implements AuthenticationDataSource {
     } on DataSourceException {
       rethrow;
     } on UnimplementedError {
-      throw const DataSourceException('Currently only support Google sign in.');
+      throw DataSourceException(
+        'Currently only support Google sign in.',
+        stackTrace: StackTrace.current,
+      );
     } catch (e) {
-      throw DataSourceException('Failed to login: $e');
+      throw DataSourceException(
+        'Failed to login: $e',
+        stackTrace: StackTrace.current,
+      );
     }
   }
 
