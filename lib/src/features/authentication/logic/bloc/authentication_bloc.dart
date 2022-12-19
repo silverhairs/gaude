@@ -83,7 +83,7 @@ class AuthenticationBloc
     );
   }
 
-  AuthenticationState _getStateFromResult(Result<Account?> result) {
+  AuthenticationState _getStateFromResult(Result<AccountUser?> result) {
     return result.when<AuthenticationState>(
       (account) => account == null
           ? const AuthenticationState.unauthenticated()

@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:gaude/src/features/authentication/data/models/account.dart';
+import 'package:gaude/src/features/authentication/data/models/account_user.dart';
 import 'package:gaude/src/features/profile/logic/repositories/account_repository.dart';
 import 'package:gaude/src/shared/shared.dart';
 
@@ -29,7 +29,7 @@ class AccountCubit extends Cubit<AccountState> {
     );
   }
 
-  Future<void> saveAccount(Account account) async {
+  Future<void> saveAccount(AccountUser account) async {
     emit(const AccountState.loading());
     final result = await _repository.saveAccount(account);
     result.when<void>(
@@ -38,7 +38,7 @@ class AccountCubit extends Cubit<AccountState> {
     );
   }
 
-  Future<void> deleteAccount(Account account) async {
+  Future<void> deleteAccount(AccountUser account) async {
     emit(const AccountState.loading());
     final result = await _repository.deleteAccount(account.id);
     result.when<void>(
@@ -47,7 +47,7 @@ class AccountCubit extends Cubit<AccountState> {
     );
   }
 
-  Future<void> backupAccountData(Account account) async {
+  Future<void> backupAccountData(AccountUser account) async {
     final result = await _repository.backup(account);
     result.when(
       (data) => emit(AccountState.loaded(account)),

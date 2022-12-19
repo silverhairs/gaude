@@ -6,7 +6,7 @@ class AuthenticationSuccessListener
     extends BlocListener<AuthenticationBloc, AuthenticationState> {
   AuthenticationSuccessListener({
     super.key,
-    ValueChanged<Account>? onAuthenticated,
+    ValueChanged<AccountUser>? onAuthenticated,
   }) : super(
           listenWhen: (_, state) => state.maybeWhen<bool>(
             authenticated: (_) => true,

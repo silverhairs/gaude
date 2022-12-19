@@ -1,10 +1,10 @@
-import 'package:gaude/src/features/authentication/data/models/account.dart';
 import 'package:gaude/src/features/authentication/data/models/account_credential.dart';
+import 'package:gaude/src/features/authentication/data/models/account_user.dart';
 
 abstract class AuthenticationDataSource {
-  Future<Account> login(AccountCredential credential);
+  Future<AccountUser> login(AccountCredential credential);
 
   Future<void> logout();
 
-  Stream<Account?> get accountAuthStateChanges;
+  Stream<AccountUser?> get accountAuthStateChanges;
 }

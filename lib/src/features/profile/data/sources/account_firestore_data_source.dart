@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:gaude/src/features/authentication/data/models/account.dart';
+import 'package:gaude/src/features/authentication/data/models/account_user.dart';
 import 'package:gaude/src/features/profile/data/sources/account_data_source.dart';
 import 'package:gaude/src/shared/utils/exceptions.dart';
 
@@ -32,12 +32,12 @@ class AccountFirestoreDataSource implements AccountDataSource {
   }
 
   @override
-  Future<Account?> getAccount(String id) async {
+  Future<AccountUser?> getAccount(String id) async {
     try {
       final doc = await _getDocument(id);
       if (doc.exists) {
         final data = doc.data() as Map<String, dynamic>;
-        return Account.fromJson(data);
+        return AccountUser.fromJson(data);
       }
     } on FirebaseException catch (e) {
       throw DataSourceException(
@@ -54,7 +54,7 @@ class AccountFirestoreDataSource implements AccountDataSource {
   }
 
   @override
-  Future<void> saveAccount(Account account) async {
+  Future<void> saveAccount(AccountUser account) async {
     try {
       await _collection.doc(account.id).set(account.toJson());
     } on FirebaseException catch (e) {

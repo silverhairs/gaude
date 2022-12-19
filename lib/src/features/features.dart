@@ -2,8 +2,8 @@
 
 library features;
 
-export 'authentication/data/models/account.dart';
 export 'authentication/data/models/account_credential.dart';
+export 'authentication/data/models/account_user.dart';
 export 'authentication/data/sources/authentication_data_source.dart';
 export 'authentication/data/sources/authentication_firebase_data_source.dart';
 export 'authentication/data/sources/credential_data_source.dart';

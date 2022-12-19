@@ -24,7 +24,7 @@ class ProfilePage extends StatelessWidget {
 class _ProfileView extends StatelessWidget {
   const _ProfileView({required this.account, Key? key}) : super(key: key);
 
-  final Account account;
+  final AccountUser account;
 
   @override
   Widget build(BuildContext context) {
@@ -136,7 +136,7 @@ class _ProfileView extends StatelessWidget {
 class _ProfilePageHeader extends StatelessWidget {
   const _ProfilePageHeader({Key? key, required this.account}) : super(key: key);
 
-  final Account account;
+  final AccountUser account;
 
   @override
   Widget build(BuildContext context) {

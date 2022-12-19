@@ -1,6 +1,6 @@
-import 'package:gaude/src/features/authentication/data/models/account.dart';
+import 'package:gaude/src/features/authentication/data/models/account_user.dart';
 
-const fakeAccount = Account(
+const fakeAccount = AccountUser(
   id: 'id',
   email: 'tester@email.com',
   name: 'Tester Doe',

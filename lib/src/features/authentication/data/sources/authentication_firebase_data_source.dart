@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:gaude/src/features/authentication/data/models/account.dart';
 import 'package:gaude/src/features/authentication/data/models/account_credential.dart';
+import 'package:gaude/src/features/authentication/data/models/account_user.dart';
 import 'package:gaude/src/features/authentication/data/sources/authentication_data_source.dart';
 import 'package:gaude/src/shared/utils/exceptions.dart';
 
@@ -9,11 +9,11 @@ class AuthenticationFirebaseDataSource implements AuthenticationDataSource {
   final FirebaseAuth _auth;
 
   @override
-  Stream<Account?> get accountAuthStateChanges async* {
+  Stream<AccountUser?> get accountAuthStateChanges async* {
     await for (final user in _auth.authStateChanges()) {
       yield user == null
           ? null
-          : Account(
+          : AccountUser(
               id: user.uid,
               email: user.email!,
               name: user.displayName!,
@@ -23,7 +23,7 @@ class AuthenticationFirebaseDataSource implements AuthenticationDataSource {
   }
 
   @override
-  Future<Account> login(AccountCredential credential) async {
+  Future<AccountUser> login(AccountCredential credential) async {
     try {
       if (credential is! GoogleAccountCredential) {
         throw UnimplementedError('Currently only support Google sign in.');
@@ -34,7 +34,7 @@ class AuthenticationFirebaseDataSource implements AuthenticationDataSource {
       );
       final userCredential = await _auth.signInWithCredential(authCredential);
       final user = userCredential.user!;
-      return Account(
+      return AccountUser(
         id: user.uid,
         email: user.email!,
         name: user.displayName!,

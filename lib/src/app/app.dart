@@ -104,7 +104,7 @@ class _AppView extends StatelessWidget with WidgetsBindingObserver {
     );
   }
 
-  void _onUserAuthenticated(Account account) {
+  void _onUserAuthenticated(AccountUser account) {
     inject<AccountCubit>().backupAccountData(account);
     final appSettingsCubit = inject<AppSettingsCubit>();
     appSettingsCubit.state.mapOrNull<void>(
