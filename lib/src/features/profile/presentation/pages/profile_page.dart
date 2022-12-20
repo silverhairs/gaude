@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gaude/src/features/features.dart';
+import 'package:gaude/src/features/profile/presentation/pages/settings_page.dart';
 import 'package:gaude/src/shared/shared.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -14,7 +15,7 @@ class ProfilePage extends StatelessWidget {
     return BlocBuilder<AccountCubit, AccountState>(
       builder: (context, state) => state.maybeWhen(
         orElse: () => const _ProfileErrorView(),
-        loaded: (account) => _ProfileView(account: account),
+        loaded: _ProfileView.new,
         loading: () => const CircularProgressIndicator.adaptive(),
       ),
     );
@@ -22,7 +23,7 @@ class ProfilePage extends StatelessWidget {
 }
 
 class _ProfileView extends StatelessWidget {
-  const _ProfileView({required this.account, Key? key}) : super(key: key);
+  const _ProfileView(this.account, {Key? key}) : super(key: key);
 
   final Account account;
 
@@ -43,9 +44,6 @@ class _ProfileView extends StatelessWidget {
           ),
           Container(
             alignment: Alignment.bottomCenter,
-            // constraints: BoxConstraints(
-            //   maxHeight: context.screenSize.height / 2,
-            // ),
             padding: const EdgeInsets.symmetric(
               vertical: Dimens.outerPadding,
             ),
@@ -68,9 +66,7 @@ class _ProfileView extends StatelessWidget {
                   ),
                   ProfileListTile(
                     key: const ValueKey('settings-profile-key'),
-                    onTap: () {
-                      // TODO: Implement me
-                    },
+                    onTap: () => context.navigateTo(const SettingsPage()),
                     title: 'Settings',
                     icon: Ionicons.settings_outline,
                   ),
@@ -92,7 +88,6 @@ class _ProfileView extends StatelessWidget {
               ),
             ),
           ),
-          // const Expanded(child: ColoredBox(color: AppColors.red40))
         ],
       ),
     );

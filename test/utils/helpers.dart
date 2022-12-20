@@ -9,7 +9,7 @@ import 'package:logger/logger.dart';
 import 'mocks/authentication/mocks.dart';
 import 'mocks/crash_report/mocks.dart';
 import 'mocks/interfaces.dart';
-import 'mocks/settings/mocks.dart';
+import 'mocks/onboarding/mocks.dart';
 
 Future<void> openMainPage(WidgetTester tester) async {
   await startAppWithMocks(

@@ -1,6 +1,6 @@
-import 'package:gaude/src/features/settings/data/models/app_settings.dart';
-import 'package:gaude/src/features/settings/data/sources/app_settings_data_source.dart';
-import 'package:gaude/src/features/settings/logic/repositories/app_settings_repository.dart';
+import 'package:gaude/src/features/onboarding/data/models/app_settings.dart';
+import 'package:gaude/src/features/onboarding/data/sources/app_settings_data_source.dart';
+import 'package:gaude/src/features/onboarding/logic/repositories/app_settings_repository.dart';
 import 'package:gaude/src/shared/shared.dart';
 
 class AppSettingsRepositoryImpl implements AppSettingsRepository {

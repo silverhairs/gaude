@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:gaude/src/features/settings/data/models/app_settings.dart';
-import 'package:gaude/src/features/settings/logic/repositories/app_settings_repository.dart';
+import 'package:gaude/src/features/onboarding/data/models/app_settings.dart';
+import 'package:gaude/src/features/onboarding/logic/repositories/app_settings_repository.dart';
 import 'package:gaude/src/shared/shared.dart';
 
 part 'app_settings_cubit.freezed.dart';
