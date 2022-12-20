@@ -7,7 +7,7 @@ part 'account_settings.g.dart';
 @Freezed(unionValueCase: FreezedUnionCase.snake)
 class AccountSettings with _$AccountSettings {
   const factory AccountSettings({
-    required Currency currency,
+    @_CurrencyConverter() required Currency currency,
     @Default(AppSecurityType.none) AppSecurityType security,
     @Default(AppBrightness.system) AppBrightness brightness,
     @Default(<NotificationTypes>[])
@@ -36,4 +36,19 @@ enum NotificationTypes {
   budget,
   tipsAndArticles,
   newFeatures;
+}
+
+class _CurrencyConverter
+    implements JsonConverter<Currency, Map<String, dynamic>> {
+  const _CurrencyConverter();
+
+  @override
+  Currency fromJson(Map<String, dynamic> json) {
+    return Currency.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic> toJson(Currency object) {
+    return object.toJson();
+  }
 }

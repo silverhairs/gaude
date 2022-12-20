@@ -10,4 +10,11 @@ extension BuildContextExtension on BuildContext {
         this,
         CupertinoPageRoute(builder: (context) => child),
       );
+
+  Future<T?> navigateToReplacement<T>(Widget child) async =>
+      await Navigator.of(this).pushReplacement<T?, Object>(
+        CupertinoPageRoute(builder: (context) => child),
+      );
+
+  void popNavigator<T>([T? result]) => Navigator.of(this).pop<T>(result);
 }

@@ -83,6 +83,7 @@ class _AppView extends StatelessWidget with WidgetsBindingObserver {
         listeners: [
           AuthenticationFailureListener(),
           AuthenticationSuccessListener(onAuthenticated: _onUserAuthenticated),
+          EmptySettingsListener(),
         ],
         child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) => state.maybeWhen<Widget>(

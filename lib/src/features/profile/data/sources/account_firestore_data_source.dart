@@ -60,8 +60,6 @@ class AccountFirestoreDataSource implements AccountDataSource {
         (_) {
           return _getDocument(account.user.id);
         },
-      ).catchError(
-        (error, stackTrace) {},
       );
     } on FirebaseException catch (e) {
       throw DataSourceException(

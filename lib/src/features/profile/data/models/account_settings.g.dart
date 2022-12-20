@@ -8,7 +8,8 @@ part of 'account_settings.dart';
 
 _$_AccountSettings _$$_AccountSettingsFromJson(Map<String, dynamic> json) =>
     _$_AccountSettings(
-      currency: Currency.fromJson(json['currency'] as Map<String, dynamic>),
+      currency: const _CurrencyConverter()
+          .fromJson(json['currency'] as Map<String, dynamic>),
       security:
           $enumDecodeNullable(_$AppSecurityTypeEnumMap, json['security']) ??
               AppSecurityType.none,
@@ -24,7 +25,7 @@ _$_AccountSettings _$$_AccountSettingsFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_AccountSettingsToJson(_$_AccountSettings instance) =>
     <String, dynamic>{
-      'currency': instance.currency,
+      'currency': const _CurrencyConverter().toJson(instance.currency),
       'security': _$AppSecurityTypeEnumMap[instance.security]!,
       'brightness': _$AppBrightnessEnumMap[instance.brightness]!,
       'allowedNotifications': instance.allowedNotifications

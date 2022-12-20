@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:gaude/src/features/profile/data/models/account.dart';
+import 'package:gaude/src/features/profile/data/models/account_settings.dart';
 import 'package:gaude/src/features/profile/logic/repositories/account_repository.dart';
 import 'package:gaude/src/shared/shared.dart';
 
@@ -50,8 +51,14 @@ class AccountCubit extends Cubit<AccountState> {
   Future<void> backupAccountData(Account account) async {
     final result = await _repository.backup(account);
     result.when(
-      (data) => emit(AccountState.loaded(account)),
+      (data) => emit(AccountState.loaded(data)),
       failure: (failure) => emitFailure(AccountState.failed(failure), failure),
     );
+  }
+
+  Future<void> updateSettings(AccountSettings settings) async {
+    assert(state is _Loaded, 'Cannot update settings when not loaded');
+    final s = state as _Loaded;
+    await saveAccount(s.account.copyWith(settings: settings));
   }
 }

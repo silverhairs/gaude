@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gaude/src/features/features.dart';
-import 'package:gaude/src/features/profile/presentation/pages/settings_page.dart';
 import 'package:gaude/src/shared/shared.dart';
 import 'package:ionicons/ionicons.dart';
 

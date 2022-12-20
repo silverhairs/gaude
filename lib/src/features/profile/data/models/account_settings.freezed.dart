@@ -20,6 +20,7 @@ AccountSettings _$AccountSettingsFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AccountSettings {
+  @_CurrencyConverter()
   Currency get currency => throw _privateConstructorUsedError;
   AppSecurityType get security => throw _privateConstructorUsedError;
   AppBrightness get brightness => throw _privateConstructorUsedError;
@@ -40,7 +41,7 @@ abstract class $AccountSettingsCopyWith<$Res> {
       _$AccountSettingsCopyWithImpl<$Res, AccountSettings>;
   @useResult
   $Res call(
-      {Currency currency,
+      {@_CurrencyConverter() Currency currency,
       AppSecurityType security,
       AppBrightness brightness,
       List<NotificationTypes> allowedNotifications,
@@ -110,7 +111,7 @@ abstract class _$$_AccountSettingsCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {Currency currency,
+      {@_CurrencyConverter() Currency currency,
       AppSecurityType security,
       AppBrightness brightness,
       List<NotificationTypes> allowedNotifications,
@@ -166,7 +167,7 @@ class __$$_AccountSettingsCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_AccountSettings implements _AccountSettings {
   const _$_AccountSettings(
-      {required this.currency,
+      {@_CurrencyConverter() required this.currency,
       this.security = AppSecurityType.none,
       this.brightness = AppBrightness.system,
       final List<NotificationTypes> allowedNotifications =
@@ -178,6 +179,7 @@ class _$_AccountSettings implements _AccountSettings {
       _$$_AccountSettingsFromJson(json);
 
   @override
+  @_CurrencyConverter()
   final Currency currency;
   @override
   @JsonKey()
@@ -239,7 +241,7 @@ class _$_AccountSettings implements _AccountSettings {
 
 abstract class _AccountSettings implements AccountSettings {
   const factory _AccountSettings(
-      {required final Currency currency,
+      {@_CurrencyConverter() required final Currency currency,
       final AppSecurityType security,
       final AppBrightness brightness,
       final List<NotificationTypes> allowedNotifications,
@@ -249,6 +251,7 @@ abstract class _AccountSettings implements AccountSettings {
       _$_AccountSettings.fromJson;
 
   @override
+  @_CurrencyConverter()
   Currency get currency;
   @override
   AppSecurityType get security;

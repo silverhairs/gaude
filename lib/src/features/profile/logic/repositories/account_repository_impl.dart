@@ -41,11 +41,11 @@ class AccountRepositoryImpl implements AccountRepository {
   Future<Result<Account>> backup(Account account) async {
     final userResult = await getAccount(account.user.id);
     return userResult.when(
-      (user) async {
-        if (user == null) {
+      (accountData) async {
+        if (accountData == null) {
           await saveAccount(account);
         }
-        return Result(account);
+        return Result(accountData!);
       },
       failure: Result.failure,
     );
