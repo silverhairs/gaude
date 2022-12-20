@@ -73,11 +73,12 @@ class _AppView extends StatelessWidget with WidgetsBindingObserver {
           ),
           centerTitle: true,
           foregroundColor: AppTheme.getSolidTextColor(context),
-          iconTheme: const IconThemeData(
-            color: AppColors.violet,
+          iconTheme: IconThemeData(
+            color: AppTheme.getSolidTextColor(context),
             size: 24,
           ),
         ),
+        listTileTheme: const ListTileThemeData(iconColor: AppColors.violet),
       ),
       home: MultiBlocListener(
         listeners: [
