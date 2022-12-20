@@ -1,6 +1,14 @@
 name: build
 
-on: [pull_request, push]
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+  pull_request:
+    branches:
+      - develop
 
 jobs:
   build:
@@ -20,4 +28,4 @@ jobs:
         run: flutter analyze lib test
 
       - name: Run tests
-        run: flutter test --no-pub --test-randomize-ordering-seed random
+        run: flutter test --no-pub
