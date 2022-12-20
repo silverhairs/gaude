@@ -144,7 +144,8 @@ class __$$_CurrencyCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class _$_Currency implements _Currency {
   const _$_Currency(
       {required this.code,

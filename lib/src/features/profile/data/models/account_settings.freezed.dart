@@ -164,7 +164,8 @@ class __$$_AccountSettingsCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class _$_AccountSettings implements _AccountSettings {
   const _$_AccountSettings(
       {@_CurrencyConverter() required this.currency,

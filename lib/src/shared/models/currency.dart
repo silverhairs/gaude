@@ -5,6 +5,8 @@ part 'currency.g.dart';
 
 @Freezed(unionValueCase: FreezedUnionCase.snake)
 class Currency with _$Currency {
+  // ignore: invalid_annotation_target
+  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory Currency({
     required String code,
     required String name,

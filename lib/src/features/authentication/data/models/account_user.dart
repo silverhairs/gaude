@@ -5,6 +5,8 @@ part 'account_user.g.dart';
 
 @freezed
 class AccountUser with _$AccountUser {
+  // ignore: invalid_annotation_target
+  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory AccountUser({
     required String id,
     required String email,

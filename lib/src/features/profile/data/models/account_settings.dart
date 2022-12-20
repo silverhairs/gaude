@@ -6,6 +6,8 @@ part 'account_settings.g.dart';
 
 @Freezed(unionValueCase: FreezedUnionCase.snake)
 class AccountSettings with _$AccountSettings {
+  // ignore: invalid_annotation_target
+  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory AccountSettings({
     @_CurrencyConverter() required Currency currency,
     @Default(AppSecurityType.none) AppSecurityType security,

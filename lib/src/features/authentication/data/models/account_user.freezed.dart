@@ -126,7 +126,8 @@ class __$$_AccountCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class _$_Account implements _Account {
   const _$_Account(
       {required this.id,
