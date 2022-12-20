@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:gaude/src/features/authentication/data/models/account_user.dart';
+import 'package:gaude/src/features/profile/data/models/account.dart';
 
 abstract class AccountDataSource {
-  FutureOr<AccountUser?> getAccount(String id);
-  FutureOr<void> saveAccount(AccountUser account);
+  FutureOr<Account?> getAccount(String id);
+  FutureOr<void> saveAccount(Account account);
   FutureOr<void> deleteAccount(String id);
 }

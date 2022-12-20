@@ -3,8 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'currency.freezed.dart';
 part 'currency.g.dart';
 
-@freezed
-@JsonSerializable(fieldRename: FieldRename.snake)
+@Freezed(unionValueCase: FreezedUnionCase.snake)
 class Currency with _$Currency {
   const factory Currency({
     required String code,

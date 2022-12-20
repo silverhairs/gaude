@@ -4,14 +4,15 @@ import 'package:gaude/src/shared/shared.dart';
 part 'account_settings.freezed.dart';
 part 'account_settings.g.dart';
 
-@freezed
-@JsonSerializable(fieldRename: FieldRename.snake)
+@Freezed(unionValueCase: FreezedUnionCase.snake)
 class AccountSettings with _$AccountSettings {
   const factory AccountSettings({
     required Currency currency,
     @Default(AppSecurityType.none) AppSecurityType security,
     @Default(AppBrightness.system) AppBrightness brightness,
-    @Default(<NotificationTypes>[]) Set<NotificationTypes> allowedNotifications,
+    @Default(<NotificationTypes>[])
+        List<NotificationTypes> allowedNotifications,
+    required DateTime updatedAt,
   }) = _AccountSettings;
 
   factory AccountSettings.fromJson(Map<String, dynamic> json) =>

@@ -23,8 +23,9 @@ mixin _$AccountSettings {
   Currency get currency => throw _privateConstructorUsedError;
   AppSecurityType get security => throw _privateConstructorUsedError;
   AppBrightness get brightness => throw _privateConstructorUsedError;
-  Set<NotificationTypes> get allowedNotifications =>
+  List<NotificationTypes> get allowedNotifications =>
       throw _privateConstructorUsedError;
+  DateTime get updatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,7 +43,8 @@ abstract class $AccountSettingsCopyWith<$Res> {
       {Currency currency,
       AppSecurityType security,
       AppBrightness brightness,
-      Set<NotificationTypes> allowedNotifications});
+      List<NotificationTypes> allowedNotifications,
+      DateTime updatedAt});
 
   $CurrencyCopyWith<$Res> get currency;
 }
@@ -64,6 +66,7 @@ class _$AccountSettingsCopyWithImpl<$Res, $Val extends AccountSettings>
     Object? security = null,
     Object? brightness = null,
     Object? allowedNotifications = null,
+    Object? updatedAt = null,
   }) {
     return _then(_value.copyWith(
       currency: null == currency
@@ -81,7 +84,11 @@ class _$AccountSettingsCopyWithImpl<$Res, $Val extends AccountSettings>
       allowedNotifications: null == allowedNotifications
           ? _value.allowedNotifications
           : allowedNotifications // ignore: cast_nullable_to_non_nullable
-              as Set<NotificationTypes>,
+              as List<NotificationTypes>,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 
@@ -106,7 +113,8 @@ abstract class _$$_AccountSettingsCopyWith<$Res>
       {Currency currency,
       AppSecurityType security,
       AppBrightness brightness,
-      Set<NotificationTypes> allowedNotifications});
+      List<NotificationTypes> allowedNotifications,
+      DateTime updatedAt});
 
   @override
   $CurrencyCopyWith<$Res> get currency;
@@ -127,6 +135,7 @@ class __$$_AccountSettingsCopyWithImpl<$Res>
     Object? security = null,
     Object? brightness = null,
     Object? allowedNotifications = null,
+    Object? updatedAt = null,
   }) {
     return _then(_$_AccountSettings(
       currency: null == currency
@@ -144,7 +153,11 @@ class __$$_AccountSettingsCopyWithImpl<$Res>
       allowedNotifications: null == allowedNotifications
           ? _value._allowedNotifications
           : allowedNotifications // ignore: cast_nullable_to_non_nullable
-              as Set<NotificationTypes>,
+              as List<NotificationTypes>,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -156,8 +169,9 @@ class _$_AccountSettings implements _AccountSettings {
       {required this.currency,
       this.security = AppSecurityType.none,
       this.brightness = AppBrightness.system,
-      final Set<NotificationTypes> allowedNotifications =
-          const <NotificationTypes>[]})
+      final List<NotificationTypes> allowedNotifications =
+          const <NotificationTypes>[],
+      required this.updatedAt})
       : _allowedNotifications = allowedNotifications;
 
   factory _$_AccountSettings.fromJson(Map<String, dynamic> json) =>
@@ -171,17 +185,20 @@ class _$_AccountSettings implements _AccountSettings {
   @override
   @JsonKey()
   final AppBrightness brightness;
-  final Set<NotificationTypes> _allowedNotifications;
+  final List<NotificationTypes> _allowedNotifications;
   @override
   @JsonKey()
-  Set<NotificationTypes> get allowedNotifications {
+  List<NotificationTypes> get allowedNotifications {
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableSetView(_allowedNotifications);
+    return EqualUnmodifiableListView(_allowedNotifications);
   }
 
   @override
+  final DateTime updatedAt;
+
+  @override
   String toString() {
-    return 'AccountSettings(currency: $currency, security: $security, brightness: $brightness, allowedNotifications: $allowedNotifications)';
+    return 'AccountSettings(currency: $currency, security: $security, brightness: $brightness, allowedNotifications: $allowedNotifications, updatedAt: $updatedAt)';
   }
 
   @override
@@ -196,13 +213,15 @@ class _$_AccountSettings implements _AccountSettings {
             (identical(other.brightness, brightness) ||
                 other.brightness == brightness) &&
             const DeepCollectionEquality()
-                .equals(other._allowedNotifications, _allowedNotifications));
+                .equals(other._allowedNotifications, _allowedNotifications) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, currency, security, brightness,
-      const DeepCollectionEquality().hash(_allowedNotifications));
+      const DeepCollectionEquality().hash(_allowedNotifications), updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -223,7 +242,8 @@ abstract class _AccountSettings implements AccountSettings {
       {required final Currency currency,
       final AppSecurityType security,
       final AppBrightness brightness,
-      final Set<NotificationTypes> allowedNotifications}) = _$_AccountSettings;
+      final List<NotificationTypes> allowedNotifications,
+      required final DateTime updatedAt}) = _$_AccountSettings;
 
   factory _AccountSettings.fromJson(Map<String, dynamic> json) =
       _$_AccountSettings.fromJson;
@@ -235,7 +255,9 @@ abstract class _AccountSettings implements AccountSettings {
   @override
   AppBrightness get brightness;
   @override
-  Set<NotificationTypes> get allowedNotifications;
+  List<NotificationTypes> get allowedNotifications;
+  @override
+  DateTime get updatedAt;
   @override
   @JsonKey(ignore: true)
   _$$_AccountSettingsCopyWith<_$_AccountSettings> get copyWith =>

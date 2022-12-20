@@ -20,7 +20,7 @@ mixin _$AccountState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(AccountUser account) loaded,
+    required TResult Function(Account account) loaded,
     required TResult Function(Failure failure) failed,
     required TResult Function() notFound,
   }) =>
@@ -29,7 +29,7 @@ mixin _$AccountState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(AccountUser account)? loaded,
+    TResult? Function(Account account)? loaded,
     TResult? Function(Failure failure)? failed,
     TResult? Function()? notFound,
   }) =>
@@ -38,7 +38,7 @@ mixin _$AccountState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(AccountUser account)? loaded,
+    TResult Function(Account account)? loaded,
     TResult Function(Failure failure)? failed,
     TResult Function()? notFound,
     required TResult orElse(),
@@ -131,7 +131,7 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(AccountUser account) loaded,
+    required TResult Function(Account account) loaded,
     required TResult Function(Failure failure) failed,
     required TResult Function() notFound,
   }) {
@@ -143,7 +143,7 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(AccountUser account)? loaded,
+    TResult? Function(Account account)? loaded,
     TResult? Function(Failure failure)? failed,
     TResult? Function()? notFound,
   }) {
@@ -155,7 +155,7 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(AccountUser account)? loaded,
+    TResult Function(Account account)? loaded,
     TResult Function(Failure failure)? failed,
     TResult Function()? notFound,
     required TResult orElse(),
@@ -250,7 +250,7 @@ class _$_Loading implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(AccountUser account) loaded,
+    required TResult Function(Account account) loaded,
     required TResult Function(Failure failure) failed,
     required TResult Function() notFound,
   }) {
@@ -262,7 +262,7 @@ class _$_Loading implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(AccountUser account)? loaded,
+    TResult? Function(Account account)? loaded,
     TResult? Function(Failure failure)? failed,
     TResult? Function()? notFound,
   }) {
@@ -274,7 +274,7 @@ class _$_Loading implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(AccountUser account)? loaded,
+    TResult Function(Account account)? loaded,
     TResult Function(Failure failure)? failed,
     TResult Function()? notFound,
     required TResult orElse(),
@@ -335,9 +335,9 @@ abstract class _$$_LoadedCopyWith<$Res> {
   factory _$$_LoadedCopyWith(_$_Loaded value, $Res Function(_$_Loaded) then) =
       __$$_LoadedCopyWithImpl<$Res>;
   @useResult
-  $Res call({AccountUser account});
+  $Res call({Account account});
 
-  $AccountUserCopyWith<$Res> get account;
+  $AccountCopyWith<$Res> get account;
 }
 
 /// @nodoc
@@ -356,14 +356,14 @@ class __$$_LoadedCopyWithImpl<$Res>
       null == account
           ? _value.account
           : account // ignore: cast_nullable_to_non_nullable
-              as AccountUser,
+              as Account,
     ));
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $AccountUserCopyWith<$Res> get account {
-    return $AccountUserCopyWith<$Res>(_value.account, (value) {
+  $AccountCopyWith<$Res> get account {
+    return $AccountCopyWith<$Res>(_value.account, (value) {
       return _then(_value.copyWith(account: value));
     });
   }
@@ -375,7 +375,7 @@ class _$_Loaded implements _Loaded {
   const _$_Loaded(this.account);
 
   @override
-  final AccountUser account;
+  final Account account;
 
   @override
   String toString() {
@@ -404,7 +404,7 @@ class _$_Loaded implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(AccountUser account) loaded,
+    required TResult Function(Account account) loaded,
     required TResult Function(Failure failure) failed,
     required TResult Function() notFound,
   }) {
@@ -416,7 +416,7 @@ class _$_Loaded implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(AccountUser account)? loaded,
+    TResult? Function(Account account)? loaded,
     TResult? Function(Failure failure)? failed,
     TResult? Function()? notFound,
   }) {
@@ -428,7 +428,7 @@ class _$_Loaded implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(AccountUser account)? loaded,
+    TResult Function(Account account)? loaded,
     TResult Function(Failure failure)? failed,
     TResult Function()? notFound,
     required TResult orElse(),
@@ -481,9 +481,9 @@ class _$_Loaded implements _Loaded {
 }
 
 abstract class _Loaded implements AccountState {
-  const factory _Loaded(final AccountUser account) = _$_Loaded;
+  const factory _Loaded(final Account account) = _$_Loaded;
 
-  AccountUser get account;
+  Account get account;
   @JsonKey(ignore: true)
   _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
       throw _privateConstructorUsedError;
@@ -553,7 +553,7 @@ class _$_Failed implements _Failed {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(AccountUser account) loaded,
+    required TResult Function(Account account) loaded,
     required TResult Function(Failure failure) failed,
     required TResult Function() notFound,
   }) {
@@ -565,7 +565,7 @@ class _$_Failed implements _Failed {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(AccountUser account)? loaded,
+    TResult? Function(Account account)? loaded,
     TResult? Function(Failure failure)? failed,
     TResult? Function()? notFound,
   }) {
@@ -577,7 +577,7 @@ class _$_Failed implements _Failed {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(AccountUser account)? loaded,
+    TResult Function(Account account)? loaded,
     TResult Function(Failure failure)? failed,
     TResult Function()? notFound,
     required TResult orElse(),
@@ -678,7 +678,7 @@ class _$_NotFound implements _NotFound {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(AccountUser account) loaded,
+    required TResult Function(Account account) loaded,
     required TResult Function(Failure failure) failed,
     required TResult Function() notFound,
   }) {
@@ -690,7 +690,7 @@ class _$_NotFound implements _NotFound {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(AccountUser account)? loaded,
+    TResult? Function(Account account)? loaded,
     TResult? Function(Failure failure)? failed,
     TResult? Function()? notFound,
   }) {
@@ -702,7 +702,7 @@ class _$_NotFound implements _NotFound {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(AccountUser account)? loaded,
+    TResult Function(Account account)? loaded,
     TResult Function(Failure failure)? failed,
     TResult Function()? notFound,
     required TResult orElse(),

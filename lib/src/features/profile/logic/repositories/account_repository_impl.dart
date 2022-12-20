@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:gaude/src/features/authentication/data/models/account_user.dart';
+import 'package:gaude/src/features/profile/data/models/account.dart';
 import 'package:gaude/src/features/profile/data/sources/account_data_source.dart';
 import 'package:gaude/src/features/profile/logic/repositories/account_repository.dart';
 import 'package:gaude/src/shared/shared.dart';
@@ -20,7 +20,7 @@ class AccountRepositoryImpl implements AccountRepository {
   }
 
   @override
-  Future<Result<AccountUser?>> getAccount(String id) async {
+  Future<Result<Account?>> getAccount(String id) async {
     try {
       return Result(await _source.getAccount(id));
     } on DataSourceException catch (e, s) {
@@ -29,7 +29,7 @@ class AccountRepositoryImpl implements AccountRepository {
   }
 
   @override
-  Future<Result<void>> saveAccount(AccountUser account) async {
+  Future<Result<void>> saveAccount(Account account) async {
     try {
       return Result(await _source.saveAccount(account));
     } catch (e, s) {
@@ -38,8 +38,8 @@ class AccountRepositoryImpl implements AccountRepository {
   }
 
   @override
-  Future<Result<AccountUser>> backup(AccountUser account) async {
-    final userResult = await getAccount(account.id);
+  Future<Result<Account>> backup(Account account) async {
+    final userResult = await getAccount(account.user.id);
     return userResult.when(
       (user) async {
         if (user == null) {

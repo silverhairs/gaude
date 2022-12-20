@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:gaude/src/features/authentication/data/models/account_user.dart';
+import 'package:gaude/src/features/profile/data/models/account.dart';
 import 'package:gaude/src/features/profile/data/sources/account_data_source.dart';
 import 'package:gaude/src/shared/utils/exceptions.dart';
 
@@ -32,12 +32,12 @@ class AccountFirestoreDataSource implements AccountDataSource {
   }
 
   @override
-  Future<AccountUser?> getAccount(String id) async {
+  Future<Account?> getAccount(String id) async {
     try {
       final doc = await _getDocument(id);
       if (doc.exists) {
         final data = doc.data() as Map<String, dynamic>;
-        return AccountUser.fromJson(data);
+        return Account.fromJson(data);
       }
     } on FirebaseException catch (e) {
       throw DataSourceException(
@@ -54,9 +54,15 @@ class AccountFirestoreDataSource implements AccountDataSource {
   }
 
   @override
-  Future<void> saveAccount(AccountUser account) async {
+  Future<void> saveAccount(Account account) async {
     try {
-      await _collection.doc(account.id).set(account.toJson());
+      await _collection.doc(account.user.id).set(account.toJson()).then(
+        (_) {
+          return _getDocument(account.user.id);
+        },
+      ).catchError(
+        (error, stackTrace) {},
+      );
     } on FirebaseException catch (e) {
       throw DataSourceException(
         e.message ?? e.code,
@@ -69,6 +75,7 @@ class AccountFirestoreDataSource implements AccountDataSource {
 
   Future<DocumentSnapshot> _getDocument(String id) async {
     final doc = await _collection.doc(id).get();
+
     return doc;
   }
 }

@@ -24,7 +24,7 @@ class ProfilePage extends StatelessWidget {
 class _ProfileView extends StatelessWidget {
   const _ProfileView({required this.account, Key? key}) : super(key: key);
 
-  final AccountUser account;
+  final Account account;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class _ProfileView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(
               vertical: Dimens.largePadding,
             ),
-            child: _ProfilePageHeader(account: account),
+            child: _ProfilePageHeader(user: account.user),
           ),
           Container(
             alignment: Alignment.bottomCenter,
@@ -134,9 +134,9 @@ class _ProfileView extends StatelessWidget {
 }
 
 class _ProfilePageHeader extends StatelessWidget {
-  const _ProfilePageHeader({Key? key, required this.account}) : super(key: key);
+  const _ProfilePageHeader({Key? key, required this.user}) : super(key: key);
 
-  final AccountUser account;
+  final AccountUser user;
 
   @override
   Widget build(BuildContext context) {
@@ -158,7 +158,7 @@ class _ProfilePageHeader extends StatelessWidget {
               child: CircleAvatar(
                 radius: kMinInteractiveDimension,
                 backgroundImage: CachedNetworkImageProvider(
-                  account.photoUrl,
+                  user.photoUrl,
                 ),
               ),
             ),
@@ -174,7 +174,7 @@ class _ProfilePageHeader extends StatelessWidget {
                       ?.copyWith(color: Colors.grey),
                 ),
                 Text(
-                  account.name,
+                  user.name,
                   overflow: TextOverflow.ellipsis,
                   style: context.textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.bold,

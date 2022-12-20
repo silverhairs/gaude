@@ -25,6 +25,8 @@ export 'home/presentation/pages/home_page.dart';
 export 'main/logic/cubit/bottom_tab_navigation_cubit.dart';
 export 'main/logic/entities/bottom_bar_tab.dart';
 export 'main/presentation/pages/main_page.dart';
+export 'profile/data/models/account.dart';
+export 'profile/data/models/account_settings.dart';
 export 'profile/data/sources/account_data_source.dart';
 export 'profile/data/sources/account_firestore_data_source.dart';
 export 'profile/logic/cubit/account_cubit.dart';
