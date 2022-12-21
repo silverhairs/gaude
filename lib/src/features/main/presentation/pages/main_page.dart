@@ -38,70 +38,75 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<BottomTabNavigationCubit, BottomTabNavigationState>(
-      listenWhen: _activeTabIsTappedMoreThanOnce,
-      listener: _navigateBackToFirstRouteOfAciveTab,
-      builder: (context, state) => state.when(
-        opened: (tab, _) => Scaffold(
-          body: WillPopScope(
+    return MultiBlocListener(
+      listeners: [
+        AccountUpdateFailureListener(),
+      ],
+      child: BlocConsumer<BottomTabNavigationCubit, BottomTabNavigationState>(
+        listenWhen: _activeTabIsTappedMoreThanOnce,
+        listener: _navigateBackToFirstRouteOfAciveTab,
+        builder: (context, state) => state.when(
+          opened: (tab, _) => WillPopScope(
             onWillPop: () async => Navigator.maybePop(
               _navigatorKeys[tab]!.currentState!.context,
             ),
-            child: CustomIndexedStack(
-              index: widget.pages.keys.toList().indexOf(tab),
-              children: [...widget.pages.map(_wrapWithNavigator).values],
-            ),
-          ),
-          bottomNavigationBar: BottomAppBar(
-            elevation: 4,
-            child: Row(
-              children: [
-                ...widget.pages.keys
-                    .toList()
-                    .sublist(0, (widget.pages.length ~/ 2))
-                    .map(
-                      (tab) => Expanded(
-                        key: ValueKey(tab),
-                        child: _buildTabButton(
-                          tab: tab,
-                          state: state,
-                          context: context,
+            child: Scaffold(
+              body: CustomIndexedStack(
+                index: widget.pages.keys.toList().indexOf(tab),
+                children: [...widget.pages.map(_wrapWithNavigator).values],
+              ),
+              bottomNavigationBar: BottomAppBar(
+                elevation: 4,
+                child: Row(
+                  children: [
+                    ...widget.pages.keys
+                        .toList()
+                        .sublist(0, (widget.pages.length ~/ 2))
+                        .map(
+                          (tab) => Expanded(
+                            key: ValueKey(tab),
+                            child: _buildTabButton(
+                              tab: tab,
+                              state: state,
+                              context: context,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                const Expanded(child: SizedBox()),
-                ...widget.pages.keys
-                    .toList()
-                    .sublist(widget.pages.length ~/ 2)
-                    .map(
-                      (tab) => Expanded(
-                        key: ValueKey(tab),
-                        child: _buildTabButton(
-                          tab: tab,
-                          state: state,
-                          context: context,
+                    const Expanded(child: SizedBox()),
+                    ...widget.pages.keys
+                        .toList()
+                        .sublist(widget.pages.length ~/ 2)
+                        .map(
+                          (tab) => Expanded(
+                            key: ValueKey(tab),
+                            child: _buildTabButton(
+                              tab: tab,
+                              state: state,
+                              context: context,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-              ],
-            ),
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-          floatingActionButton: Container(
-            padding: const EdgeInsets.all(4),
-            decoration: const BoxDecoration(
-              color: AppColors.violet20,
-              shape: BoxShape.circle,
-            ),
-            child: FloatingActionButton(
-              key: const ValueKey(MainPage.floatingActionButtonKey),
-              backgroundColor: AppColors.violet,
-              onPressed: () {
-                // TODO: Implement me.
-                throw UnimplementedError('Add new expense button pressed');
-              },
-              child: const Icon(Icons.add, color: AppColors.light),
+                  ],
+                ),
+              ),
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.centerDocked,
+              floatingActionButton: Container(
+                padding: const EdgeInsets.all(4),
+                decoration: const BoxDecoration(
+                  color: AppColors.violet20,
+                  shape: BoxShape.circle,
+                ),
+                child: FloatingActionButton(
+                  key: const ValueKey(MainPage.floatingActionButtonKey),
+                  backgroundColor: AppColors.violet,
+                  onPressed: () {
+                    // TODO: Implement me.
+                    throw UnimplementedError('Add new expense button pressed');
+                  },
+                  child: const Icon(Icons.add, color: AppColors.light),
+                ),
+              ),
             ),
           ),
         ),

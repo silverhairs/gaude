@@ -21,8 +21,9 @@ mixin _$AccountState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(Account account) loaded,
-    required TResult Function(Failure failure) failed,
+    required TResult Function(Failure failure) failedToLoad,
     required TResult Function() notFound,
+    required TResult Function(Failure failure) failedToSave,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -30,8 +31,9 @@ mixin _$AccountState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(Account account)? loaded,
-    TResult? Function(Failure failure)? failed,
+    TResult? Function(Failure failure)? failedToLoad,
     TResult? Function()? notFound,
+    TResult? Function(Failure failure)? failedToSave,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -39,8 +41,9 @@ mixin _$AccountState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(Account account)? loaded,
-    TResult Function(Failure failure)? failed,
+    TResult Function(Failure failure)? failedToLoad,
     TResult Function()? notFound,
+    TResult Function(Failure failure)? failedToSave,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -49,8 +52,9 @@ mixin _$AccountState {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Failed value) failed,
+    required TResult Function(_Failed value) failedToLoad,
     required TResult Function(_NotFound value) notFound,
+    required TResult Function(_FailedToSave value) failedToSave,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -58,8 +62,9 @@ mixin _$AccountState {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Failed value)? failed,
+    TResult? Function(_Failed value)? failedToLoad,
     TResult? Function(_NotFound value)? notFound,
+    TResult? Function(_FailedToSave value)? failedToSave,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -67,8 +72,9 @@ mixin _$AccountState {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
-    TResult Function(_Failed value)? failed,
+    TResult Function(_Failed value)? failedToLoad,
     TResult Function(_NotFound value)? notFound,
+    TResult Function(_FailedToSave value)? failedToSave,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -132,8 +138,9 @@ class _$_Initial implements _Initial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(Account account) loaded,
-    required TResult Function(Failure failure) failed,
+    required TResult Function(Failure failure) failedToLoad,
     required TResult Function() notFound,
+    required TResult Function(Failure failure) failedToSave,
   }) {
     return initial();
   }
@@ -144,8 +151,9 @@ class _$_Initial implements _Initial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(Account account)? loaded,
-    TResult? Function(Failure failure)? failed,
+    TResult? Function(Failure failure)? failedToLoad,
     TResult? Function()? notFound,
+    TResult? Function(Failure failure)? failedToSave,
   }) {
     return initial?.call();
   }
@@ -156,8 +164,9 @@ class _$_Initial implements _Initial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(Account account)? loaded,
-    TResult Function(Failure failure)? failed,
+    TResult Function(Failure failure)? failedToLoad,
     TResult Function()? notFound,
+    TResult Function(Failure failure)? failedToSave,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -172,8 +181,9 @@ class _$_Initial implements _Initial {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Failed value) failed,
+    required TResult Function(_Failed value) failedToLoad,
     required TResult Function(_NotFound value) notFound,
+    required TResult Function(_FailedToSave value) failedToSave,
   }) {
     return initial(this);
   }
@@ -184,8 +194,9 @@ class _$_Initial implements _Initial {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Failed value)? failed,
+    TResult? Function(_Failed value)? failedToLoad,
     TResult? Function(_NotFound value)? notFound,
+    TResult? Function(_FailedToSave value)? failedToSave,
   }) {
     return initial?.call(this);
   }
@@ -196,8 +207,9 @@ class _$_Initial implements _Initial {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
-    TResult Function(_Failed value)? failed,
+    TResult Function(_Failed value)? failedToLoad,
     TResult Function(_NotFound value)? notFound,
+    TResult Function(_FailedToSave value)? failedToSave,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -251,8 +263,9 @@ class _$_Loading implements _Loading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(Account account) loaded,
-    required TResult Function(Failure failure) failed,
+    required TResult Function(Failure failure) failedToLoad,
     required TResult Function() notFound,
+    required TResult Function(Failure failure) failedToSave,
   }) {
     return loading();
   }
@@ -263,8 +276,9 @@ class _$_Loading implements _Loading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(Account account)? loaded,
-    TResult? Function(Failure failure)? failed,
+    TResult? Function(Failure failure)? failedToLoad,
     TResult? Function()? notFound,
+    TResult? Function(Failure failure)? failedToSave,
   }) {
     return loading?.call();
   }
@@ -275,8 +289,9 @@ class _$_Loading implements _Loading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(Account account)? loaded,
-    TResult Function(Failure failure)? failed,
+    TResult Function(Failure failure)? failedToLoad,
     TResult Function()? notFound,
+    TResult Function(Failure failure)? failedToSave,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -291,8 +306,9 @@ class _$_Loading implements _Loading {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Failed value) failed,
+    required TResult Function(_Failed value) failedToLoad,
     required TResult Function(_NotFound value) notFound,
+    required TResult Function(_FailedToSave value) failedToSave,
   }) {
     return loading(this);
   }
@@ -303,8 +319,9 @@ class _$_Loading implements _Loading {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Failed value)? failed,
+    TResult? Function(_Failed value)? failedToLoad,
     TResult? Function(_NotFound value)? notFound,
+    TResult? Function(_FailedToSave value)? failedToSave,
   }) {
     return loading?.call(this);
   }
@@ -315,8 +332,9 @@ class _$_Loading implements _Loading {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
-    TResult Function(_Failed value)? failed,
+    TResult Function(_Failed value)? failedToLoad,
     TResult Function(_NotFound value)? notFound,
+    TResult Function(_FailedToSave value)? failedToSave,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -405,8 +423,9 @@ class _$_Loaded implements _Loaded {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(Account account) loaded,
-    required TResult Function(Failure failure) failed,
+    required TResult Function(Failure failure) failedToLoad,
     required TResult Function() notFound,
+    required TResult Function(Failure failure) failedToSave,
   }) {
     return loaded(account);
   }
@@ -417,8 +436,9 @@ class _$_Loaded implements _Loaded {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(Account account)? loaded,
-    TResult? Function(Failure failure)? failed,
+    TResult? Function(Failure failure)? failedToLoad,
     TResult? Function()? notFound,
+    TResult? Function(Failure failure)? failedToSave,
   }) {
     return loaded?.call(account);
   }
@@ -429,8 +449,9 @@ class _$_Loaded implements _Loaded {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(Account account)? loaded,
-    TResult Function(Failure failure)? failed,
+    TResult Function(Failure failure)? failedToLoad,
     TResult Function()? notFound,
+    TResult Function(Failure failure)? failedToSave,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -445,8 +466,9 @@ class _$_Loaded implements _Loaded {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Failed value) failed,
+    required TResult Function(_Failed value) failedToLoad,
     required TResult Function(_NotFound value) notFound,
+    required TResult Function(_FailedToSave value) failedToSave,
   }) {
     return loaded(this);
   }
@@ -457,8 +479,9 @@ class _$_Loaded implements _Loaded {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Failed value)? failed,
+    TResult? Function(_Failed value)? failedToLoad,
     TResult? Function(_NotFound value)? notFound,
+    TResult? Function(_FailedToSave value)? failedToSave,
   }) {
     return loaded?.call(this);
   }
@@ -469,8 +492,9 @@ class _$_Loaded implements _Loaded {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
-    TResult Function(_Failed value)? failed,
+    TResult Function(_Failed value)? failedToLoad,
     TResult Function(_NotFound value)? notFound,
+    TResult Function(_FailedToSave value)? failedToSave,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -528,7 +552,7 @@ class _$_Failed implements _Failed {
 
   @override
   String toString() {
-    return 'AccountState.failed(failure: $failure)';
+    return 'AccountState.failedToLoad(failure: $failure)';
   }
 
   @override
@@ -554,10 +578,11 @@ class _$_Failed implements _Failed {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(Account account) loaded,
-    required TResult Function(Failure failure) failed,
+    required TResult Function(Failure failure) failedToLoad,
     required TResult Function() notFound,
+    required TResult Function(Failure failure) failedToSave,
   }) {
-    return failed(failure);
+    return failedToLoad(failure);
   }
 
   @override
@@ -566,10 +591,11 @@ class _$_Failed implements _Failed {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(Account account)? loaded,
-    TResult? Function(Failure failure)? failed,
+    TResult? Function(Failure failure)? failedToLoad,
     TResult? Function()? notFound,
+    TResult? Function(Failure failure)? failedToSave,
   }) {
-    return failed?.call(failure);
+    return failedToLoad?.call(failure);
   }
 
   @override
@@ -578,12 +604,13 @@ class _$_Failed implements _Failed {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(Account account)? loaded,
-    TResult Function(Failure failure)? failed,
+    TResult Function(Failure failure)? failedToLoad,
     TResult Function()? notFound,
+    TResult Function(Failure failure)? failedToSave,
     required TResult orElse(),
   }) {
-    if (failed != null) {
-      return failed(failure);
+    if (failedToLoad != null) {
+      return failedToLoad(failure);
     }
     return orElse();
   }
@@ -594,10 +621,11 @@ class _$_Failed implements _Failed {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Failed value) failed,
+    required TResult Function(_Failed value) failedToLoad,
     required TResult Function(_NotFound value) notFound,
+    required TResult Function(_FailedToSave value) failedToSave,
   }) {
-    return failed(this);
+    return failedToLoad(this);
   }
 
   @override
@@ -606,10 +634,11 @@ class _$_Failed implements _Failed {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Failed value)? failed,
+    TResult? Function(_Failed value)? failedToLoad,
     TResult? Function(_NotFound value)? notFound,
+    TResult? Function(_FailedToSave value)? failedToSave,
   }) {
-    return failed?.call(this);
+    return failedToLoad?.call(this);
   }
 
   @override
@@ -618,12 +647,13 @@ class _$_Failed implements _Failed {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
-    TResult Function(_Failed value)? failed,
+    TResult Function(_Failed value)? failedToLoad,
     TResult Function(_NotFound value)? notFound,
+    TResult Function(_FailedToSave value)? failedToSave,
     required TResult orElse(),
   }) {
-    if (failed != null) {
-      return failed(this);
+    if (failedToLoad != null) {
+      return failedToLoad(this);
     }
     return orElse();
   }
@@ -679,8 +709,9 @@ class _$_NotFound implements _NotFound {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(Account account) loaded,
-    required TResult Function(Failure failure) failed,
+    required TResult Function(Failure failure) failedToLoad,
     required TResult Function() notFound,
+    required TResult Function(Failure failure) failedToSave,
   }) {
     return notFound();
   }
@@ -691,8 +722,9 @@ class _$_NotFound implements _NotFound {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(Account account)? loaded,
-    TResult? Function(Failure failure)? failed,
+    TResult? Function(Failure failure)? failedToLoad,
     TResult? Function()? notFound,
+    TResult? Function(Failure failure)? failedToSave,
   }) {
     return notFound?.call();
   }
@@ -703,8 +735,9 @@ class _$_NotFound implements _NotFound {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(Account account)? loaded,
-    TResult Function(Failure failure)? failed,
+    TResult Function(Failure failure)? failedToLoad,
     TResult Function()? notFound,
+    TResult Function(Failure failure)? failedToSave,
     required TResult orElse(),
   }) {
     if (notFound != null) {
@@ -719,8 +752,9 @@ class _$_NotFound implements _NotFound {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Failed value) failed,
+    required TResult Function(_Failed value) failedToLoad,
     required TResult Function(_NotFound value) notFound,
+    required TResult Function(_FailedToSave value) failedToSave,
   }) {
     return notFound(this);
   }
@@ -731,8 +765,9 @@ class _$_NotFound implements _NotFound {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Failed value)? failed,
+    TResult? Function(_Failed value)? failedToLoad,
     TResult? Function(_NotFound value)? notFound,
+    TResult? Function(_FailedToSave value)? failedToSave,
   }) {
     return notFound?.call(this);
   }
@@ -743,8 +778,9 @@ class _$_NotFound implements _NotFound {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
-    TResult Function(_Failed value)? failed,
+    TResult Function(_Failed value)? failedToLoad,
     TResult Function(_NotFound value)? notFound,
+    TResult Function(_FailedToSave value)? failedToSave,
     required TResult orElse(),
   }) {
     if (notFound != null) {
@@ -756,4 +792,161 @@ class _$_NotFound implements _NotFound {
 
 abstract class _NotFound implements AccountState {
   const factory _NotFound() = _$_NotFound;
+}
+
+/// @nodoc
+abstract class _$$_FailedToSaveCopyWith<$Res> {
+  factory _$$_FailedToSaveCopyWith(
+          _$_FailedToSave value, $Res Function(_$_FailedToSave) then) =
+      __$$_FailedToSaveCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Failure failure});
+}
+
+/// @nodoc
+class __$$_FailedToSaveCopyWithImpl<$Res>
+    extends _$AccountStateCopyWithImpl<$Res, _$_FailedToSave>
+    implements _$$_FailedToSaveCopyWith<$Res> {
+  __$$_FailedToSaveCopyWithImpl(
+      _$_FailedToSave _value, $Res Function(_$_FailedToSave) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? failure = null,
+  }) {
+    return _then(_$_FailedToSave(
+      null == failure
+          ? _value.failure
+          : failure // ignore: cast_nullable_to_non_nullable
+              as Failure,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_FailedToSave implements _FailedToSave {
+  const _$_FailedToSave(this.failure);
+
+  @override
+  final Failure failure;
+
+  @override
+  String toString() {
+    return 'AccountState.failedToSave(failure: $failure)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_FailedToSave &&
+            (identical(other.failure, failure) || other.failure == failure));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, failure);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_FailedToSaveCopyWith<_$_FailedToSave> get copyWith =>
+      __$$_FailedToSaveCopyWithImpl<_$_FailedToSave>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(Account account) loaded,
+    required TResult Function(Failure failure) failedToLoad,
+    required TResult Function() notFound,
+    required TResult Function(Failure failure) failedToSave,
+  }) {
+    return failedToSave(failure);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(Account account)? loaded,
+    TResult? Function(Failure failure)? failedToLoad,
+    TResult? Function()? notFound,
+    TResult? Function(Failure failure)? failedToSave,
+  }) {
+    return failedToSave?.call(failure);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(Account account)? loaded,
+    TResult Function(Failure failure)? failedToLoad,
+    TResult Function()? notFound,
+    TResult Function(Failure failure)? failedToSave,
+    required TResult orElse(),
+  }) {
+    if (failedToSave != null) {
+      return failedToSave(failure);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_Failed value) failedToLoad,
+    required TResult Function(_NotFound value) notFound,
+    required TResult Function(_FailedToSave value) failedToSave,
+  }) {
+    return failedToSave(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Loaded value)? loaded,
+    TResult? Function(_Failed value)? failedToLoad,
+    TResult? Function(_NotFound value)? notFound,
+    TResult? Function(_FailedToSave value)? failedToSave,
+  }) {
+    return failedToSave?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_Failed value)? failedToLoad,
+    TResult Function(_NotFound value)? notFound,
+    TResult Function(_FailedToSave value)? failedToSave,
+    required TResult orElse(),
+  }) {
+    if (failedToSave != null) {
+      return failedToSave(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _FailedToSave implements AccountState {
+  const factory _FailedToSave(final Failure failure) = _$_FailedToSave;
+
+  Failure get failure;
+  @JsonKey(ignore: true)
+  _$$_FailedToSaveCopyWith<_$_FailedToSave> get copyWith =>
+      throw _privateConstructorUsedError;
 }

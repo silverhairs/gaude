@@ -26,7 +26,10 @@ class AccountCubit extends Cubit<AccountState> {
         }
         emit(AccountState.loaded(account));
       },
-      failure: (failure) => emitFailure(AccountState.failed(failure), failure),
+      failure: (failure) => emitFailure(
+        AccountState.failedToLoad(failure),
+        failure,
+      ),
     );
   }
 
@@ -35,7 +38,10 @@ class AccountCubit extends Cubit<AccountState> {
     final result = await _repository.saveAccount(account);
     result.when<void>(
       (_) => getAccount(account.user.id),
-      failure: (failure) => emitFailure(AccountState.failed(failure), failure),
+      failure: (failure) => emitFailure(
+        AccountState.failedToSave(failure),
+        failure,
+      ),
     );
   }
 
@@ -44,7 +50,10 @@ class AccountCubit extends Cubit<AccountState> {
     final result = await _repository.deleteAccount(account.user.id);
     result.when<void>(
       (_) => getAccount(account.user.id),
-      failure: (failure) => emitFailure(AccountState.failed(failure), failure),
+      failure: (failure) => emitFailure(
+        AccountState.failedToLoad(failure),
+        failure,
+      ),
     );
   }
 
@@ -52,7 +61,10 @@ class AccountCubit extends Cubit<AccountState> {
     final result = await _repository.backup(account);
     result.when(
       (data) => emit(AccountState.loaded(data)),
-      failure: (failure) => emitFailure(AccountState.failed(failure), failure),
+      failure: (failure) => emitFailure(
+        AccountState.failedToLoad(failure),
+        failure,
+      ),
     );
   }
 

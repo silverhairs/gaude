@@ -89,7 +89,7 @@ class _AppView extends StatelessWidget with WidgetsBindingObserver {
         child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) => state.maybeWhen<Widget>(
             loading: () => const Scaffold(
-              body: Center(child: CircularProgressIndicator()),
+              body: Center(child: CenteredCircledIndicator()),
             ),
             authenticated: (account) => const MainPage(
               pages: {

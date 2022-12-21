@@ -11,6 +11,7 @@ export 'interfaces/external_connection.dart';
 export 'models/currency.dart';
 export 'models/failure.dart';
 export 'models/result.dart';
+export 'presentation/widgets/centered_progress_indicator.dart';
 export 'presentation/widgets/custom_indexed_stack.dart';
 export 'presentation/widgets/injected_bloc_provider.dart';
 export 'presentation/widgets/notification_flushbar.dart';

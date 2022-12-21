@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gaude/src/features/profile/logic/cubit/account_cubit.dart';
+import 'package:gaude/src/features/features.dart';
 import 'package:gaude/src/shared/shared.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -22,7 +22,8 @@ class SettingsPage extends StatelessWidget {
       ),
       body: BlocBuilder<AccountCubit, AccountState>(
         builder: (context, state) => state.maybeWhen(
-          orElse: SizedBox.shrink,
+          orElse: () => const ProfileErrorView(),
+          loading: () => const CenteredCircledIndicator(),
           loaded: (account) => SizedBox(
             width: double.infinity,
             child: Column(
@@ -32,9 +33,9 @@ class SettingsPage extends StatelessWidget {
                 _SettingListTile(
                   key: const ValueKey(currencyTileKey),
                   title: 'Currency',
-                  onTap: () {
-                    //TODO: Implement me
-                  },
+                  onTap: () => context.navigateTo(SettingsCurrencyPage(
+                    settings: account.settings!,
+                  )),
                   trailingText: account.settings!.currency.code,
                 ),
                 const SizedBox(height: Dimens.outerPadding),

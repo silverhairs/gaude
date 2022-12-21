@@ -10,10 +10,12 @@ class AccountRepositoryImpl implements AccountRepository {
 
   final AccountDataSource _source;
 
+  static const _timeout = Duration(seconds: 3);
+
   @override
   Future<Result<void>> deleteAccount(String id) async {
     try {
-      return Result(await _source.deleteAccount(id));
+      return Result(await _source.deleteAccount(id).timeout(_timeout));
     } catch (e, s) {
       return Result.failure(Failure(e, s));
     }
@@ -22,7 +24,7 @@ class AccountRepositoryImpl implements AccountRepository {
   @override
   Future<Result<Account?>> getAccount(String id) async {
     try {
-      return Result(await _source.getAccount(id));
+      return Result(await _source.getAccount(id).timeout(_timeout));
     } on DataSourceException catch (e, s) {
       return Result.failure(Failure(e, s));
     }
@@ -31,7 +33,7 @@ class AccountRepositoryImpl implements AccountRepository {
   @override
   Future<Result<void>> saveAccount(Account account) async {
     try {
-      return Result(await _source.saveAccount(account));
+      return Result(await _source.saveAccount(account).timeout(_timeout));
     } catch (e, s) {
       return Result.failure(Failure(e, s));
     }
