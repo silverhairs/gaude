@@ -38,25 +38,22 @@ class _SettingsNotificationsPageState extends State<SettingsNotificationsPage> {
             setState(() => _enabledNotifications.clear());
           }),
           builder: (context, state) => state.maybeWhen<Widget>(
-            granted: () => _NotificationsView(
+            granted: () => _NotificationsTogglerList(
               notificationTypes: _toggableNotifications,
               enabledNotifications: _enabledNotifications.toList(),
-              onNotificationTypeChanged: _onNotificationToggled,
+              onToggled: _onNotificationToggled,
             ),
             pending: CenteredCircledIndicator.new,
             orElse: () => Stack(
               children: [
-                _NotificationsView(
+                _NotificationsTogglerList(
                   notificationTypes: _toggableNotifications,
                   enabledNotifications: _enabledNotifications.toList(),
-                  onNotificationTypeChanged: _onNotificationToggled,
+                  onToggled: _onNotificationToggled,
                 ),
                 Positioned.fill(
-                  child: Container(
-                    width: double.infinity,
-                    color: AppTheme.getBaseColor(context).withOpacity(
-                      0.5,
-                    ),
+                  child: ColoredBox(
+                    color: AppTheme.getBaseColor(context).withOpacity(0.5),
                   ),
                 ),
                 Center(
@@ -98,45 +95,41 @@ class _SettingsNotificationsPageState extends State<SettingsNotificationsPage> {
   ]..remove(NotificationTypes.newFeatures);
 }
 
-class _NotificationsView extends StatelessWidget {
-  const _NotificationsView({
+class _NotificationsTogglerList extends StatelessWidget {
+  const _NotificationsTogglerList({
     required this.notificationTypes,
-    required this.onNotificationTypeChanged,
+    required this.onToggled,
     required this.enabledNotifications,
     Key? key,
   }) : super(key: key);
 
-  final void Function(bool, NotificationTypes) onNotificationTypeChanged;
+  final void Function(bool, NotificationTypes) onToggled;
   final List<NotificationTypes> notificationTypes, enabledNotifications;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AccountCubit, AccountState>(
-      builder: (context, state) {
-        return ListView.separated(
-          itemCount: notificationTypes.length,
-          itemBuilder: (context, index) {
-            final notification = notificationTypes[index];
-            return ListTile(
-              key: ValueKey(notification),
-              title: Text(_getNotificationLabel(notification)),
-              subtitle: Text(
-                _getNotificationDescription(notification),
-                style: context.textTheme.caption!.apply(color: Colors.grey),
-              ),
-              trailing: CupertinoSwitch(
-                activeColor: context.theme.primaryColor,
-                value: enabledNotifications.contains(notification),
-                onChanged: (enabled) => onNotificationTypeChanged(
-                  enabled,
-                  notification,
-                ),
-              ),
-            );
-          },
-          separatorBuilder: (context, _) => const Divider(),
+    return ListView.separated(
+      itemCount: notificationTypes.length,
+      itemBuilder: (context, index) {
+        final notification = notificationTypes[index];
+        return ListTile(
+          key: ValueKey(notification),
+          title: Text(_getNotificationLabel(notification)),
+          subtitle: Text(
+            _getNotificationDescription(notification),
+            style: context.textTheme.caption!.apply(color: Colors.grey),
+          ),
+          trailing: CupertinoSwitch(
+            activeColor: context.theme.primaryColor,
+            value: enabledNotifications.contains(notification),
+            onChanged: (enabled) => onToggled(
+              enabled,
+              notification,
+            ),
+          ),
         );
       },
+      separatorBuilder: (context, _) => const Divider(),
     );
   }
 
