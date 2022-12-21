@@ -14,7 +14,8 @@ abstract class Injector {
   static void configure() {
     _container
       ..registerLazySingleton(Logger.new)
-      ..registerLazySingleton(BottomTabNavigationCubit.new);
+      ..registerLazySingleton(BottomTabNavigationCubit.new)
+      ..registerLazySingleton(OpenAppSettings.new);
 
     _configureDatabase();
     _configureAppSettings();
@@ -22,6 +23,7 @@ abstract class Injector {
     _configureCrashReport();
     _configureProfile();
     _configureAuthentication();
+    _configureNotifications();
   }
 
   static final _container = GetIt.instance;
@@ -94,5 +96,13 @@ abstract class Injector {
         () => AccountRepositoryImpl(inject()),
       )
       ..registerLazySingleton(() => AccountCubit(inject()));
+  }
+
+  static void _configureNotifications() {
+    _container
+      ..registerLazySingleton<NotificationsPermissionRepository>(
+        () => NotificationsPermissionRepositoryImpl(inject()),
+      )
+      ..registerLazySingleton(() => NotificationPermissionCubit(inject()));
   }
 }

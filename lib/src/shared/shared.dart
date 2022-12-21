@@ -23,3 +23,4 @@ export 'utils/extensions/context_ext.dart';
 export 'utils/styling/app_colors.dart';
 export 'utils/styling/app_theme.dart';
 export 'utils/styling/dimens.dart';
+export 'utils/wrappers/open_app_settings.dart';

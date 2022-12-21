@@ -14,18 +14,27 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
   late final Map<BottomBarTab, GlobalKey<NavigatorState>> _navigatorKeys;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _navigatorKeys = widget.pages.map(
       (tab, page) => MapEntry(
         tab,
         GlobalKey<NavigatorState>(debugLabel: tab.label),
       ),
     );
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.resumed) {
+      context.read<NotificationPermissionCubit>().getPermissionStatus();
+    }
   }
 
   @override

@@ -14,11 +14,11 @@ class SettingsCurrencyPage extends StatefulWidget {
 }
 
 class _SettingsCurrencyPageState extends State<SettingsCurrencyPage> {
-  late Currency selectedCurrency;
+  late Currency _selectedCurrency;
   @override
   void initState() {
     super.initState();
-    selectedCurrency = widget.settings.currency;
+    _selectedCurrency = widget.settings.currency;
   }
 
   @override
@@ -27,7 +27,7 @@ class _SettingsCurrencyPageState extends State<SettingsCurrencyPage> {
       onWillPop: () async {
         await context.read<AccountCubit>().updateSettings(
               widget.settings.copyWith(
-                currency: selectedCurrency,
+                currency: _selectedCurrency,
               ),
             );
         return true;
@@ -45,10 +45,10 @@ class _SettingsCurrencyPageState extends State<SettingsCurrencyPage> {
                 return ListTile(
                   key: ValueKey(account.settings!.currency.code),
                   title: Text('${currency.name} (${currency.code})'),
-                  trailing: currency == selectedCurrency
+                  trailing: currency == _selectedCurrency
                       ? const Icon(Ionicons.checkmark_circle)
                       : null,
-                  onTap: () => setState(() => selectedCurrency = currency),
+                  onTap: () => setState(() => _selectedCurrency = currency),
                 );
               },
               separatorBuilder: (context, _) => const Divider(),

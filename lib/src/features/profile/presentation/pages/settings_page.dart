@@ -64,7 +64,9 @@ class SettingsPage extends StatelessWidget {
                 _SettingListTile(
                   key: const ValueKey(notificationsTileKey),
                   title: 'Notifications',
-                  onTap: () {},
+                  onTap: () => context.navigateTo(
+                    SettingsNotificationsPage(settings: account.settings!),
+                  ),
                 ),
               ],
             ),

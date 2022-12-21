@@ -23,6 +23,9 @@ class App extends StatelessWidget {
         ),
         InjectedBlocProvider<AccountCubit>(),
         InjectedBlocProvider<AuthenticationBloc>(),
+        InjectedBlocProvider<NotificationPermissionCubit>(
+          onCreate: (cubit) => cubit.getPermissionStatus(),
+        )
       ],
       child: const _AppView(),
     );
