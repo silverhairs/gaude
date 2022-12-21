@@ -42,6 +42,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
     for (var key in _navigatorKeys.values) {
       _navigatorKeys.remove(key)?.currentState?.dispose();
     }
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 

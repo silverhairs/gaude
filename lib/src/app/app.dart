@@ -90,11 +90,9 @@ class _AppView extends StatelessWidget with WidgetsBindingObserver {
           EmptySettingsListener(),
         ],
         child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-          builder: (context, state) => state.maybeWhen<Widget>(
-            loading: () => const Scaffold(
-              body: Center(child: CenteredCircledIndicator()),
-            ),
-            authenticated: (account) => const MainPage(
+          builder: (context, state) => state.maybeWhen(
+            loading: () => const Scaffold(body: CenteredCircledIndicator()),
+            authenticated: (_) => const MainPage(
               pages: {
                 BottomBarTab.home: HomePage(),
                 BottomBarTab.transactions: TransacionsPage(),
@@ -112,13 +110,11 @@ class _AppView extends StatelessWidget with WidgetsBindingObserver {
   void _onUserAuthenticated(AccountUser user) {
     inject<AccountCubit>().backupAccountData(Account(user: user));
     final appSettingsCubit = inject<AppSettingsCubit>();
-    appSettingsCubit.state.mapOrNull<void>(
-      loaded: (loaded) {
-        if (loaded.appSettings.onboardingStatus != OnboardingStatus.completed) {
+    appSettingsCubit.state.whenOrNull(
+      loaded: (settings) {
+        if (settings.onboardingStatus != OnboardingStatus.completed) {
           appSettingsCubit.saveAppSettings(
-            loaded.appSettings.copyWith(
-              onboardingStatus: OnboardingStatus.completed,
-            ),
+            settings.copyWith(onboardingStatus: OnboardingStatus.completed),
           );
         }
       },
