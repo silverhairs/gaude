@@ -34,12 +34,13 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
     super.didChangeAppLifecycleState(state);
     if (state == AppLifecycleState.resumed) {
       context.read<NotificationPermissionCubit>().getPermissionStatus();
+      _unlockApp();
     }
   }
 
   @override
   void dispose() {
-    for (var key in _navigatorKeys.values) {
+    for (final key in _navigatorKeys.values) {
       _navigatorKeys.remove(key)?.currentState?.dispose();
     }
     WidgetsBinding.instance.removeObserver(this);
@@ -51,15 +52,20 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
     return MultiBlocListener(
       listeners: [
         AccountUpdateFailureListener(),
+        AppLockListener(),
       ],
       child: BlocConsumer<BottomTabNavigationCubit, BottomTabNavigationState>(
         listenWhen: _activeTabIsTappedMoreThanOnce,
         listener: _navigateBackToFirstRouteOfAciveTab,
         builder: (context, state) => state.when(
           opened: (tab, _) => WillPopScope(
-            onWillPop: () async => Navigator.maybePop(
-              _navigatorKeys[tab]!.currentState!.context,
-            ),
+            onWillPop: () async {
+              if (_navigatorKeys[tab]!.currentState!.canPop()) {
+                _navigatorKeys[tab]!.currentState!.pop();
+                return false;
+              }
+              return true;
+            },
             child: Scaffold(
               body: CustomIndexedStack(
                 index: widget.pages.keys.toList().indexOf(tab),
@@ -122,6 +128,15 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
         ),
       ),
     );
+  }
+
+  void _unlockApp() {
+    final appSettings = context.read<AppSettingsCubit>();
+    appSettings.state.whenOrNull(loaded: (settings) {
+      if (settings.onboardingStatus == OnboardingStatus.completed) {
+        context.read<AppLockCubit>().authenticate();
+      }
+    });
   }
 
   bool _activeTabIsTappedMoreThanOnce(
