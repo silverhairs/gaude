@@ -1,5 +1,5 @@
-import 'package:gaude/src/features/settings/data/models/app_settings.dart';
-import 'package:gaude/src/features/settings/data/sources/app_settings_data_source.dart';
+import 'package:gaude/src/features/onboarding/data/models/app_settings.dart';
+import 'package:gaude/src/features/onboarding/data/sources/app_settings_data_source.dart';
 import 'package:gaude/src/shared/shared.dart';
 
 class AppSettingsLocalDataSource implements AppSettingsDataSource {
@@ -23,7 +23,10 @@ class AppSettingsLocalDataSource implements AppSettingsDataSource {
     } on DatabaseException {
       rethrow;
     } catch (e, s) {
-      throw DataSourceException('Failed to get app settings: $e\n$s');
+      throw DataSourceException(
+        'Failed to get app settings: $e',
+        stackTrace: s,
+      );
     }
   }
 
@@ -35,7 +38,10 @@ class AppSettingsLocalDataSource implements AppSettingsDataSource {
     } on DatabaseException {
       rethrow;
     } catch (e, s) {
-      throw DataSourceException('Failed to get app settings: $e\n$s');
+      throw DataSourceException(
+        'Failed to get app settings: $e',
+        stackTrace: s,
+      );
     }
   }
 }

@@ -21,7 +21,7 @@ class AuthenticationBloc
         super(const _Initial()) {
     on<AuthenticationEvent>(_handleEvent);
     appSettingsRepository.getAppSettings().then(
-          (result) => result.maybeWhen(
+          (result) => result.whenOrNull(
             (settings) {
               if (settings.onboardingStatus != OnboardingStatus.notStarted) {
                 _authenticationRepository.accountAuthStateChanges
@@ -31,7 +31,6 @@ class AuthenticationBloc
                 });
               }
             },
-            orElse: () {},
           ),
         );
   }
@@ -84,7 +83,7 @@ class AuthenticationBloc
     );
   }
 
-  AuthenticationState _getStateFromResult(Result<Account?> result) {
+  AuthenticationState _getStateFromResult(Result<AccountUser?> result) {
     return result.when<AuthenticationState>(
       (account) => account == null
           ? const AuthenticationState.unauthenticated()

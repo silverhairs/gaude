@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'account.dart';
+part of 'account_user.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Account _$AccountFromJson(Map<String, dynamic> json) {
+AccountUser _$AccountUserFromJson(Map<String, dynamic> json) {
   return _Account.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Account {
+mixin _$AccountUser {
   String get id => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
@@ -27,21 +27,23 @@ mixin _$Account {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $AccountCopyWith<Account> get copyWith => throw _privateConstructorUsedError;
+  $AccountUserCopyWith<AccountUser> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AccountCopyWith<$Res> {
-  factory $AccountCopyWith(Account value, $Res Function(Account) then) =
-      _$AccountCopyWithImpl<$Res, Account>;
+abstract class $AccountUserCopyWith<$Res> {
+  factory $AccountUserCopyWith(
+          AccountUser value, $Res Function(AccountUser) then) =
+      _$AccountUserCopyWithImpl<$Res, AccountUser>;
   @useResult
   $Res call({String id, String email, String name, String photoUrl});
 }
 
 /// @nodoc
-class _$AccountCopyWithImpl<$Res, $Val extends Account>
-    implements $AccountCopyWith<$Res> {
-  _$AccountCopyWithImpl(this._value, this._then);
+class _$AccountUserCopyWithImpl<$Res, $Val extends AccountUser>
+    implements $AccountUserCopyWith<$Res> {
+  _$AccountUserCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -78,7 +80,7 @@ class _$AccountCopyWithImpl<$Res, $Val extends Account>
 }
 
 /// @nodoc
-abstract class _$$_AccountCopyWith<$Res> implements $AccountCopyWith<$Res> {
+abstract class _$$_AccountCopyWith<$Res> implements $AccountUserCopyWith<$Res> {
   factory _$$_AccountCopyWith(
           _$_Account value, $Res Function(_$_Account) then) =
       __$$_AccountCopyWithImpl<$Res>;
@@ -89,7 +91,7 @@ abstract class _$$_AccountCopyWith<$Res> implements $AccountCopyWith<$Res> {
 
 /// @nodoc
 class __$$_AccountCopyWithImpl<$Res>
-    extends _$AccountCopyWithImpl<$Res, _$_Account>
+    extends _$AccountUserCopyWithImpl<$Res, _$_Account>
     implements _$$_AccountCopyWith<$Res> {
   __$$_AccountCopyWithImpl(_$_Account _value, $Res Function(_$_Account) _then)
       : super(_value, _then);
@@ -124,7 +126,8 @@ class __$$_AccountCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class _$_Account implements _Account {
   const _$_Account(
       {required this.id,
@@ -146,7 +149,7 @@ class _$_Account implements _Account {
 
   @override
   String toString() {
-    return 'Account(id: $id, email: $email, name: $name, photoUrl: $photoUrl)';
+    return 'AccountUser(id: $id, email: $email, name: $name, photoUrl: $photoUrl)';
   }
 
   @override
@@ -179,7 +182,7 @@ class _$_Account implements _Account {
   }
 }
 
-abstract class _Account implements Account {
+abstract class _Account implements AccountUser {
   const factory _Account(
       {required final String id,
       required final String email,

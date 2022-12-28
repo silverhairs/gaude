@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:gaude/src/features/authentication/data/models/account.dart';
 import 'package:gaude/src/features/authentication/data/models/account_credential.dart';
+import 'package:gaude/src/features/authentication/data/models/account_user.dart';
 import 'package:gaude/src/features/authentication/data/sources/authentication_data_source.dart';
 import 'package:gaude/src/features/authentication/logic/repositories/authentication_repository.dart';
 import 'package:gaude/src/shared/shared.dart';
@@ -13,7 +13,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   final AuthenticationDataSource _source;
 
   @override
-  Stream<Result<Account?>> get accountAuthStateChanges async* {
+  Stream<Result<AccountUser?>> get accountAuthStateChanges async* {
     try {
       await for (final account in _source.accountAuthStateChanges) {
         yield Result(account);
@@ -24,7 +24,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   }
 
   @override
-  FutureOr<Result<Account>> login(AccountCredential credential) async {
+  FutureOr<Result<AccountUser>> login(AccountCredential credential) async {
     try {
       final account = await _source.login(credential);
       return Result(account);

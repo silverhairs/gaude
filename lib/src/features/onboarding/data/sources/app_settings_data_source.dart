@@ -1,4 +1,4 @@
-import 'package:gaude/src/features/settings/data/models/app_settings.dart';
+import 'package:gaude/src/features/onboarding/data/models/app_settings.dart';
 
 abstract class AppSettingsDataSource {
   Future<AppSettings> getAppSettings();

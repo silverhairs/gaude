@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart' show CupertinoPageRoute;
 import 'package:flutter/material.dart';
 
@@ -10,4 +11,14 @@ extension BuildContextExtension on BuildContext {
         this,
         CupertinoPageRoute(builder: (context) => child),
       );
+
+  Future<T?> navigateToReplacement<T>(Widget child) async =>
+      await Navigator.of(this).pushReplacement<T?, Object>(
+        CupertinoPageRoute(builder: (context) => child),
+      );
+
+  void popNavigator<T>([T? result]) => Navigator.of(this).pop<T>(result);
+
+  Future<void> showFlushbar(Flushbar flushbar) async =>
+      await flushbar.show(this);
 }

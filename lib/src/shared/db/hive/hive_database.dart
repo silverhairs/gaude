@@ -20,8 +20,8 @@ class HiveDatabase implements Database, ExternalConnection {
     try {
       final box = await _hive.openBox<String>(name);
       return HiveStorage(box);
-    } catch (e) {
-      throw DatabaseException('$e');
+    } catch (e, s) {
+      throw DatabaseException('$e', stackTrace: s);
     }
   }
 
@@ -30,8 +30,8 @@ class HiveDatabase implements Database, ExternalConnection {
     try {
       await _hive.initFlutter();
       _isActive = true;
-    } on Exception {
-      throw const DatabaseException('Failed to initialize Hive');
+    } on Exception catch (e, s) {
+      throw DatabaseException('Failed to initialize Hive:$e', stackTrace: s);
     }
   }
 
@@ -40,8 +40,8 @@ class HiveDatabase implements Database, ExternalConnection {
     try {
       await _hive.close();
       _isActive = false;
-    } catch (e) {
-      throw DatabaseException('Failed to close Hive: $e');
+    } catch (e, s) {
+      throw DatabaseException('Failed to close Hive: $e', stackTrace: s);
     }
   }
 }

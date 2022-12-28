@@ -19,7 +19,7 @@ mixin _$AuthenticationState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(Account account) authenticated,
+    required TResult Function(AccountUser account) authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(Failure failure) failed,
     required TResult Function() loading,
@@ -28,7 +28,7 @@ mixin _$AuthenticationState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(Account account)? authenticated,
+    TResult? Function(AccountUser account)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(Failure failure)? failed,
     TResult? Function()? loading,
@@ -37,7 +37,7 @@ mixin _$AuthenticationState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(Account account)? authenticated,
+    TResult Function(AccountUser account)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(Failure failure)? failed,
     TResult Function()? loading,
@@ -130,7 +130,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(Account account) authenticated,
+    required TResult Function(AccountUser account) authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(Failure failure) failed,
     required TResult Function() loading,
@@ -142,7 +142,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(Account account)? authenticated,
+    TResult? Function(AccountUser account)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(Failure failure)? failed,
     TResult? Function()? loading,
@@ -154,7 +154,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(Account account)? authenticated,
+    TResult Function(AccountUser account)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(Failure failure)? failed,
     TResult Function()? loading,
@@ -217,9 +217,9 @@ abstract class _$$_AuthenticatedCopyWith<$Res> {
           _$_Authenticated value, $Res Function(_$_Authenticated) then) =
       __$$_AuthenticatedCopyWithImpl<$Res>;
   @useResult
-  $Res call({Account account});
+  $Res call({AccountUser account});
 
-  $AccountCopyWith<$Res> get account;
+  $AccountUserCopyWith<$Res> get account;
 }
 
 /// @nodoc
@@ -239,14 +239,14 @@ class __$$_AuthenticatedCopyWithImpl<$Res>
       null == account
           ? _value.account
           : account // ignore: cast_nullable_to_non_nullable
-              as Account,
+              as AccountUser,
     ));
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $AccountCopyWith<$Res> get account {
-    return $AccountCopyWith<$Res>(_value.account, (value) {
+  $AccountUserCopyWith<$Res> get account {
+    return $AccountUserCopyWith<$Res>(_value.account, (value) {
       return _then(_value.copyWith(account: value));
     });
   }
@@ -258,7 +258,7 @@ class _$_Authenticated implements _Authenticated {
   const _$_Authenticated(this.account);
 
   @override
-  final Account account;
+  final AccountUser account;
 
   @override
   String toString() {
@@ -286,7 +286,7 @@ class _$_Authenticated implements _Authenticated {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(Account account) authenticated,
+    required TResult Function(AccountUser account) authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(Failure failure) failed,
     required TResult Function() loading,
@@ -298,7 +298,7 @@ class _$_Authenticated implements _Authenticated {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(Account account)? authenticated,
+    TResult? Function(AccountUser account)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(Failure failure)? failed,
     TResult? Function()? loading,
@@ -310,7 +310,7 @@ class _$_Authenticated implements _Authenticated {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(Account account)? authenticated,
+    TResult Function(AccountUser account)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(Failure failure)? failed,
     TResult Function()? loading,
@@ -364,9 +364,9 @@ class _$_Authenticated implements _Authenticated {
 }
 
 abstract class _Authenticated implements AuthenticationState {
-  const factory _Authenticated(final Account account) = _$_Authenticated;
+  const factory _Authenticated(final AccountUser account) = _$_Authenticated;
 
-  Account get account;
+  AccountUser get account;
   @JsonKey(ignore: true)
   _$$_AuthenticatedCopyWith<_$_Authenticated> get copyWith =>
       throw _privateConstructorUsedError;
@@ -411,7 +411,7 @@ class _$_Unauthenticated implements _Unauthenticated {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(Account account) authenticated,
+    required TResult Function(AccountUser account) authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(Failure failure) failed,
     required TResult Function() loading,
@@ -423,7 +423,7 @@ class _$_Unauthenticated implements _Unauthenticated {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(Account account)? authenticated,
+    TResult? Function(AccountUser account)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(Failure failure)? failed,
     TResult? Function()? loading,
@@ -435,7 +435,7 @@ class _$_Unauthenticated implements _Unauthenticated {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(Account account)? authenticated,
+    TResult Function(AccountUser account)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(Failure failure)? failed,
     TResult Function()? loading,
@@ -556,7 +556,7 @@ class _$_Failure implements _Failure {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(Account account) authenticated,
+    required TResult Function(AccountUser account) authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(Failure failure) failed,
     required TResult Function() loading,
@@ -568,7 +568,7 @@ class _$_Failure implements _Failure {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(Account account)? authenticated,
+    TResult? Function(AccountUser account)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(Failure failure)? failed,
     TResult? Function()? loading,
@@ -580,7 +580,7 @@ class _$_Failure implements _Failure {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(Account account)? authenticated,
+    TResult Function(AccountUser account)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(Failure failure)? failed,
     TResult Function()? loading,
@@ -680,7 +680,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(Account account) authenticated,
+    required TResult Function(AccountUser account) authenticated,
     required TResult Function() unauthenticated,
     required TResult Function(Failure failure) failed,
     required TResult Function() loading,
@@ -692,7 +692,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(Account account)? authenticated,
+    TResult? Function(AccountUser account)? authenticated,
     TResult? Function()? unauthenticated,
     TResult? Function(Failure failure)? failed,
     TResult? Function()? loading,
@@ -704,7 +704,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(Account account)? authenticated,
+    TResult Function(AccountUser account)? authenticated,
     TResult Function()? unauthenticated,
     TResult Function(Failure failure)? failed,
     TResult Function()? loading,

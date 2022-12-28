@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:gaude/src/di/di.dart';
@@ -13,13 +14,16 @@ abstract class Injector {
   static void configure() {
     _container
       ..registerLazySingleton(Logger.new)
-      ..registerLazySingleton(BottomTabNavigationCubit.new);
+      ..registerLazySingleton(BottomTabNavigationCubit.new)
+      ..registerLazySingleton(OpenAppSettings.new);
 
     _configureDatabase();
     _configureAppSettings();
     _configureFirebase();
     _configureCrashReport();
+    _configureProfile();
     _configureAuthentication();
+    _configureNotifications();
   }
 
   static final _container = GetIt.instance;
@@ -31,7 +35,8 @@ abstract class Injector {
   static void _configureFirebase() {
     _container
       ..registerSingleton(FirebaseCrashlytics.instance)
-      ..registerSingleton(FirebaseAuth.instance);
+      ..registerSingleton(FirebaseAuth.instance)
+      ..registerSingleton(FirebaseFirestore.instance);
   }
 
   static void _configureCrashReport() {
@@ -80,5 +85,24 @@ abstract class Injector {
         () => AppSettingsRepositoryImpl(inject()),
       )
       ..registerLazySingleton(() => AppSettingsCubit(inject()));
+  }
+
+  static void _configureProfile() {
+    _container
+      ..registerLazySingleton<AccountDataSource>(
+        () => AccountFirestoreDataSource(inject()),
+      )
+      ..registerLazySingleton<AccountRepository>(
+        () => AccountRepositoryImpl(inject()),
+      )
+      ..registerLazySingleton(() => AccountCubit(inject()));
+  }
+
+  static void _configureNotifications() {
+    _container
+      ..registerLazySingleton<NotificationsPermissionRepository>(
+        () => NotificationsPermissionRepositoryImpl(inject()),
+      )
+      ..registerLazySingleton(() => NotificationPermissionCubit(inject()));
   }
 }

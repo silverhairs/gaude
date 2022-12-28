@@ -13,7 +13,7 @@ class AuthenticationFailureListener
               failed: (_) => true,
             );
           },
-          listener: (context, state) => state.maybeWhen<void>(
+          listener: (context, state) => state.whenOrNull<void>(
             failed: (failure) async {
               onFailure?.call(failure);
               await NotificationFlushbar(
@@ -22,7 +22,6 @@ class AuthenticationFailureListener
                 isError: true,
               ).show(context);
             },
-            orElse: () {},
           ),
         );
 }

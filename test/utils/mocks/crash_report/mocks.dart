@@ -10,7 +10,13 @@ class MockCrashReportRepository extends Mock implements CrashReportRepository {}
 class CrashReportRepositoryStubs implements StubsManager {
   CrashReportRepositoryStubs() {
     registerFallbackValue(
-      Failure(const DataSourceException('error'), StackTrace.current),
+      const Failure(
+        DataSourceException(
+          'error',
+          stackTrace: StackTrace.empty,
+        ),
+        StackTrace.empty,
+      ),
     );
     registerFallbackValue(FlutterErrorDetails(exception: Exception('error')));
     setupStubs();
@@ -38,10 +44,9 @@ class CrashReportRepositoryStubs implements StubsManager {
   void failedExceptionRecord() {
     when(() => _repository.recordException(any())).thenAnswer(
       (_) async => Result.failure(
-        Failure(
-          const DataSourceException('failed to record exception'),
-          StackTrace.current,
-        ),
+        const DataSourceException('failed to record exception',
+                stackTrace: StackTrace.empty)
+            .toFailure(),
       ),
     );
   }
@@ -55,10 +60,9 @@ class CrashReportRepositoryStubs implements StubsManager {
   void failedFlutterErrorRecord() {
     when(() => _repository.recordFlutterError(any())).thenAnswer(
       (_) async => Result.failure(
-        Failure(
-          const DataSourceException('failed to record flutter error'),
-          StackTrace.current,
-        ),
+        const DataSourceException('failed to record flutter error',
+                stackTrace: StackTrace.empty)
+            .toFailure(),
       ),
     );
   }

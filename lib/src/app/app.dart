@@ -2,6 +2,7 @@ library app;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gaude/src/di/di.dart';
 import 'package:gaude/src/features/features.dart';
 import 'package:gaude/src/shared/shared.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,8 +19,13 @@ class App extends StatelessWidget {
       providers: [
         InjectedBlocProvider<BottomTabNavigationCubit>(),
         InjectedBlocProvider<AppSettingsCubit>(
-            onCreate: (cubit) => cubit.loadAppSettings()),
+          onCreate: (cubit) => cubit.loadAppSettings(),
+        ),
+        InjectedBlocProvider<AccountCubit>(),
         InjectedBlocProvider<AuthenticationBloc>(),
+        InjectedBlocProvider<NotificationPermissionCubit>(
+          onCreate: (cubit) => cubit.getPermissionStatus(),
+        )
       ],
       child: const _AppView(),
     );
@@ -70,27 +76,23 @@ class _AppView extends StatelessWidget with WidgetsBindingObserver {
           ),
           centerTitle: true,
           foregroundColor: AppTheme.getSolidTextColor(context),
-          iconTheme: const IconThemeData(
-            color: AppColors.violet,
+          iconTheme: IconThemeData(
+            color: AppTheme.getSolidTextColor(context),
             size: 24,
           ),
         ),
+        listTileTheme: const ListTileThemeData(iconColor: AppColors.violet),
       ),
       home: MultiBlocListener(
         listeners: [
           AuthenticationFailureListener(),
-          BlocListener<AuthenticationBloc, AuthenticationState>(
-            listenWhen: (_, state) => state.maybeWhen<bool>(
-              authenticated: (_) => true,
-              orElse: () => false,
-            ),
-            listener: _updateOnboardingStatus,
-          )
+          AuthenticationSuccessListener(onAuthenticated: _onUserAuthenticated),
+          EmptySettingsListener(),
         ],
         child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) => state.maybeWhen<Widget>(
             loading: () => const Scaffold(
-              body: Center(child: CircularProgressIndicator()),
+              body: Center(child: CenteredCircledIndicator()),
             ),
             authenticated: (account) => const MainPage(
               pages: {
@@ -107,27 +109,19 @@ class _AppView extends StatelessWidget with WidgetsBindingObserver {
     );
   }
 
-  void _updateOnboardingStatus(
-    BuildContext context,
-    AuthenticationState state,
-  ) {
-    state.maybeWhen<void>(
-      authenticated: (_) {
-        final appSettingsCubit = context.read<AppSettingsCubit>();
-        appSettingsCubit.state.maybeWhen<void>(
-          loaded: (settings) {
-            if (settings.onboardingStatus != OnboardingStatus.completed) {
-              appSettingsCubit.saveAppSettings(
-                settings.copyWith(
-                  onboardingStatus: OnboardingStatus.completed,
-                ),
-              );
-            }
-          },
-          orElse: () {},
-        );
+  void _onUserAuthenticated(AccountUser user) {
+    inject<AccountCubit>().backupAccountData(Account(user: user));
+    final appSettingsCubit = inject<AppSettingsCubit>();
+    appSettingsCubit.state.mapOrNull<void>(
+      loaded: (loaded) {
+        if (loaded.appSettings.onboardingStatus != OnboardingStatus.completed) {
+          appSettingsCubit.saveAppSettings(
+            loaded.appSettings.copyWith(
+              onboardingStatus: OnboardingStatus.completed,
+            ),
+          );
+        }
       },
-      orElse: () {},
     );
   }
 }

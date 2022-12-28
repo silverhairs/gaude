@@ -20,8 +20,8 @@ abstract class AppTheme {
 
   static Color getBackgroundColor(BuildContext context) {
     return Theme.of(context).brightness == Brightness.light
-        ? AppColors.light80
-        : AppColors.dark80;
+        ? AppColors.light60
+        : AppColors.dark60;
   }
 
   static Color getBaseColor(

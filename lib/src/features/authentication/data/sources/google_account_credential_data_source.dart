@@ -21,7 +21,7 @@ class GoogleAccountCredentialDataSource implements AccountCredentialDataSource {
         idToken: googleSignInAuthentication.idToken!,
       );
     } on Exception catch (e) {
-      throw DataSourceException(e.toString());
+      throw DataSourceException(e.toString(), stackTrace: StackTrace.current);
     }
   }
 
@@ -30,7 +30,7 @@ class GoogleAccountCredentialDataSource implements AccountCredentialDataSource {
     try {
       await _googleSignIn.signOut();
     } on Exception catch (e) {
-      throw DataSourceException(e.toString());
+      throw DataSourceException(e.toString(), stackTrace: StackTrace.current);
     }
   }
 }

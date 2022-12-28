@@ -2,5 +2,6 @@ include: package:flutter_lints/flutter.yaml
 
 linter:
   rules:
+
 analyzer:
   exclude: [lib/**.freezed.dart, lib/**.g.dart]
