@@ -4,17 +4,21 @@ import 'package:gaude/src/app/app.dart';
 import 'package:gaude/src/di/inject.dart';
 import 'package:gaude/src/features/features.dart';
 import 'package:get_it/get_it.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:logger/logger.dart';
 
 import 'mocks/authentication/mocks.dart';
 import 'mocks/crash_report/mocks.dart';
 import 'mocks/interfaces.dart';
 import 'mocks/onboarding/mocks.dart';
+import 'mocks/profile/mocks.dart';
+import 'mocks/security/mocks.dart';
 
 Future<void> openMainPage(WidgetTester tester) async {
   await startAppWithMocks(
-      runner: () async => await tester.pumpWidget(const App()),
-      stubs: [CrashReportRepositoryStubs()]);
+    runner: () async => await tester.pumpWidget(const App()),
+    stubs: [CrashReportRepositoryStubs()],
+  );
 
   await tester.pumpAndSettle(const Duration(seconds: 1));
 }
@@ -42,6 +46,8 @@ Future<void> startAppWithMocks({
     AppSettingsDataSourceStubs(inject()).onboardingCompleted();
     AuthenticationRepositoryStubs(inject()).authStateChangesWithAccount();
   }
+  AccountDataSourceStubs(inject()).setupStubs();
+  LocalAuthenticationStubs(inject()).setupStubs();
   if (runner != null) {
     await runner();
     return;
@@ -105,15 +111,28 @@ void _configureInjector({List<StubsManager> stubs = const []}) {
   AuthenticationRepositoryStubs(inject()).setupStubs();
   container.registerFactory(
     () => AuthenticationBloc(
-        authenticationRepository: inject(),
-        accountCredentialRepository: inject(),
-        appSettingsRepository: inject()),
+      authenticationRepository: inject(),
+      accountCredentialRepository: inject(),
+      appSettingsRepository: inject(),
+    ),
   );
 
   // Crash Report
   container.registerSingleton<CrashReportRepository>(
     MockCrashReportRepository(),
   );
+
+  // Account
+  container
+    ..registerSingleton<AccountDataSource>(MockAccountDataSource())
+    ..registerSingleton<AccountRepository>(AccountRepositoryImpl(inject()))
+    ..registerFactory(() => AccountCubit(inject()));
+
+  // AppLock
+  container
+    ..registerSingleton<LocalAuthentication>(MockLocalAuthentication())
+    ..registerSingleton<AppLockRepository>(AppLockRepositoryImpl(inject()))
+    ..registerLazySingleton(() => AppLockCubit(inject()));
 
   // The statement below should always be at the end of the function
   for (var stub in stubs) {

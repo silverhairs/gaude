@@ -6,6 +6,7 @@ import 'package:gaude/src/features/features.dart';
 import 'package:gaude/src/shared/shared.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:logger/logger.dart';
 
 abstract class Injector {
@@ -24,6 +25,7 @@ abstract class Injector {
     _configureProfile();
     _configureAuthentication();
     _configureNotifications();
+    _configureAppLock();
   }
 
   static final _container = GetIt.instance;
@@ -104,5 +106,14 @@ abstract class Injector {
         () => NotificationsPermissionRepositoryImpl(inject()),
       )
       ..registerLazySingleton(() => NotificationPermissionCubit(inject()));
+  }
+
+  static void _configureAppLock() {
+    _container
+      ..registerLazySingleton(LocalAuthentication.new)
+      ..registerLazySingleton<AppLockRepository>(
+        () => AppLockRepositoryImpl(inject()),
+      )
+      ..registerLazySingleton(() => AppLockCubit(inject()));
   }
 }

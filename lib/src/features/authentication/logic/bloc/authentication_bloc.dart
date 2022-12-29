@@ -20,19 +20,11 @@ class AuthenticationBloc
         _accountCredentialRepository = accountCredentialRepository,
         super(const _Initial()) {
     on<AuthenticationEvent>(_handleEvent);
-    appSettingsRepository.getAppSettings().then(
-          (result) => result.whenOrNull(
-            (settings) {
-              if (settings.onboardingStatus != OnboardingStatus.notStarted) {
-                _authenticationRepository.accountAuthStateChanges
-                    .listen((result) {
-                  // ignore: invalid_use_of_visible_for_testing_member
-                  emit(_getStateFromResult(result));
-                });
-              }
-            },
-          ),
-        );
+
+    _authenticationRepository.accountAuthStateChanges.listen(
+      // ignore: invalid_use_of_visible_for_testing_member
+      (result) => emit(_getStateFromResult(result)),
+    );
   }
 
   final AccountCredentialRepository _accountCredentialRepository;
@@ -84,10 +76,10 @@ class AuthenticationBloc
   }
 
   AuthenticationState _getStateFromResult(Result<AccountUser?> result) {
-    return result.when<AuthenticationState>(
-      (account) => account == null
+    return result.when(
+      (user) => user == null
           ? const AuthenticationState.unauthenticated()
-          : AuthenticationState.authenticated(account),
+          : AuthenticationState.authenticated(user),
       failure: AuthenticationState.failed,
     );
   }
