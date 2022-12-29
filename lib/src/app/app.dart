@@ -2,7 +2,6 @@ library app;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gaude/src/di/di.dart';
 import 'package:gaude/src/features/features.dart';
 import 'package:gaude/src/shared/shared.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -87,7 +86,9 @@ class _AppView extends StatelessWidget with WidgetsBindingObserver {
       home: MultiBlocListener(
         listeners: [
           AuthenticationFailureListener(),
-          AuthenticationSuccessListener(onAuthenticated: _onUserAuthenticated),
+          AuthenticationSuccessListener(
+            onAuthenticated: (user) => _onUserAuthenticated(user, context),
+          ),
           EmptySettingsListener(),
         ],
         child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
@@ -108,9 +109,9 @@ class _AppView extends StatelessWidget with WidgetsBindingObserver {
     );
   }
 
-  void _onUserAuthenticated(AccountUser user) {
-    inject<AccountCubit>().backupAccountData(Account(user: user));
-    final appSettingsCubit = inject<AppSettingsCubit>();
+  void _onUserAuthenticated(AccountUser user, BuildContext context) {
+    context.read<AccountCubit>().backupAccountData(Account(user: user));
+    final appSettingsCubit = context.read<AppSettingsCubit>();
     appSettingsCubit.state.whenOrNull(
       loaded: (settings) {
         if (settings.onboardingStatus != OnboardingStatus.completed) {

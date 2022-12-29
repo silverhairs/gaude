@@ -39,7 +39,7 @@ class AuthenticationRepositoryStubs implements StubsManager {
 
   void successfulLogin() {
     when(() => _repository.login(any())).thenAnswer(
-      (_) async => const Result(fakeAccount),
+      (_) async => const Result(testUser),
     );
   }
 
@@ -85,7 +85,7 @@ class AuthenticationRepositoryStubs implements StubsManager {
 
   void authStateChangesWithAccount() {
     when(() => _repository.accountAuthStateChanges).thenAnswer(
-      (_) => Stream.fromIterable([const Result(fakeAccount)]),
+      (_) => Stream.fromIterable([const Result(testUser)]),
     );
   }
 }

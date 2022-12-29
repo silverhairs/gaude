@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:gaude/src/features/features.dart';
 
 import '../../../../../utils/helpers.dart';
+import '../../../../../utils/mocks/authentication/fakes.dart';
 
 extension on BottomBarTab {
   /// A text that allows to identify a page.
@@ -15,7 +16,7 @@ extension on BottomBarTab {
       case BottomBarTab.budget:
         return 'Ongoing Budget';
       case BottomBarTab.profile:
-        return 'Logout';
+        return testUser.name;
     }
   }
 }
