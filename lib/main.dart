@@ -7,6 +7,7 @@ import 'package:gaude/src/app/bloc_observer.dart';
 import 'package:gaude/src/di/di.dart';
 import 'package:gaude/src/features/features.dart';
 import 'package:gaude/src/shared/shared.dart';
+import 'package:logger/logger.dart';
 
 import 'src/app/app.dart';
 
@@ -17,7 +18,13 @@ Future<void> main() async {
     DeviceOrientation.portraitDown,
   ]);
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  Injector.configure();
+  Injector.configure(
+    AppConfig(
+      logLevel: AppConfig.getLogLevelFromEnvironment(
+        defaultLevel: Level.nothing,
+      ),
+    ),
+  );
 
   final auditor = inject<CrashReportRepository>();
   FlutterError.onError = auditor.recordFlutterError;
@@ -31,7 +38,8 @@ Future<void> _setupLocalDatabase() async {
   final db = inject<Database>();
   if (db is ExternalConnection) {
     try {
-      await (db as ExternalConnection).start();
+      final connection = db as ExternalConnection;
+      await connection.start();
     } catch (e, s) {
       await inject<CrashReportRepository>().recordException(Failure(e, s));
     }

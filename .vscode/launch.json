@@ -13,7 +13,7 @@
       "request": "launch",
       "type": "dart",
       "program": "lib/main_prod.dart",
-      "args": ["--flavor", "pro"]
+      "args": ["--flavor", "prod"]
     }
   ]
 }

@@ -38,7 +38,7 @@ class OnboardingPage extends StatelessWidget {
             children: [
               Text(
                 "Let's setup your account!",
-                style: context.textTheme.headline5,
+                style: context.textTheme.headlineSmall,
               ),
               const SizedBox(height: Dimens.largePadding),
               const Text(

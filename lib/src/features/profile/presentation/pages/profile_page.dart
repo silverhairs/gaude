@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gaude/src/features/features.dart';
@@ -93,35 +92,69 @@ class _ProfileView extends StatelessWidget {
   }
 
   void _onLogout(BuildContext context) {
-    showCupertinoDialog(
-      context: context,
-      builder: (context) => CupertinoAlertDialog(
-        title: const Text('Logout'),
-        content: const Text('Are you sure you want to log out ?'),
-        actions: [
-          CupertinoButton(
-            onPressed: () {
-              context.read<AuthenticationBloc>().add(
-                    const AuthenticationLogout(),
-                  );
-
-              Navigator.of(context).pop();
-            },
-            child: Text(
-              'Yes, logout',
-              style: context.textTheme.button!.copyWith(color: AppColors.red),
+    context.useRoot(
+      (rootContext) => showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        context: rootContext,
+        builder: (context) => BottomSheet(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.horizontal(
+              left: Radius.circular(16),
+              right: Radius.circular(16),
             ),
           ),
-          CupertinoButton(
-            onPressed: Navigator.of(context).pop,
-            child: Text(
-              'Cancel',
-              style: context.textTheme.button!.copyWith(
-                color: AppTheme.getSolidTextColor(context),
-              ),
+          constraints: const BoxConstraints(
+            maxHeight: 132,
+          ),
+          onClosing: Navigator.of(context).pop,
+          builder: (context) => Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: Dimens.outerPadding,
+              vertical: Dimens.innerPadding,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  'Logout',
+                  style: context.textTheme.titleMedium,
+                  textAlign: TextAlign.center,
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        context
+                            .read<AuthenticationBloc>()
+                            .add(const AuthenticationLogout());
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('Yes'),
+                    ),
+                    const SizedBox(width: Dimens.outerPadding),
+                    TextButton(
+                      onPressed: Navigator.of(context).pop,
+                      child: const Text('No'),
+                    ),
+                  ].map(
+                    (child) {
+                      if (child is ButtonStyleButton) {
+                        return Expanded(
+                          key: ValueKey(child.hashCode),
+                          child: child,
+                        );
+                      }
+                      return child;
+                    },
+                  ).toList(),
+                ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }

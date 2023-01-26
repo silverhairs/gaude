@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gaude/src/features/features.dart';
@@ -32,16 +34,18 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
+    _unlockApp();
     if (state == AppLifecycleState.resumed) {
       context.read<NotificationPermissionCubit>().getPermissionStatus();
-      _unlockApp();
+      // _unlockApp();
     }
   }
 
   @override
   void dispose() {
-    for (final key in _navigatorKeys.values) {
-      _navigatorKeys.remove(key)?.currentState?.dispose();
+    for (var i = 0; i < _navigatorKeys.length; i++) {
+      final tab = _navigatorKeys.keys.elementAt(i);
+      _navigatorKeys.remove(tab)?.currentState?.dispose();
     }
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
@@ -131,6 +135,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
   }
 
   void _unlockApp() {
+    if (Platform.isIOS) return;
     final appSettings = context.read<AppSettingsCubit>();
     appSettings.state.whenOrNull(loaded: (settings) {
       if (settings.onboardingStatus == OnboardingStatus.completed) {
@@ -199,7 +204,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
             ),
             Text(
               tab.label,
-              style: context.textTheme.caption!.copyWith(
+              style: context.textTheme.bodySmall!.copyWith(
                 color: state.tab == tab ? AppColors.dark40 : AppColors.dark20,
               ),
             ),

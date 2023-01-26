@@ -7,8 +7,6 @@ import 'package:gaude/src/shared/shared.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ionicons/ionicons.dart';
 
-export 'configs/app_config.dart';
-
 class App extends StatelessWidget {
   const App({super.key});
 
@@ -32,7 +30,7 @@ class App extends StatelessWidget {
   }
 }
 
-class _AppView extends StatelessWidget with WidgetsBindingObserver {
+class _AppView extends StatelessWidget {
   const _AppView({Key? key}) : super(key: key);
 
   @override
@@ -50,7 +48,7 @@ class _AppView extends StatelessWidget with WidgetsBindingObserver {
             padding: const EdgeInsets.all(Dimens.outerPadding),
             foregroundColor: AppColors.light,
             backgroundColor: AppTheme.primarySwatch,
-            textStyle: GoogleFonts.poppinsTextTheme().bodyText1,
+            textStyle: GoogleFonts.poppinsTextTheme().bodyLarge,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(Dimens.radiusButton),
             ),
@@ -61,7 +59,7 @@ class _AppView extends StatelessWidget with WidgetsBindingObserver {
             padding: const EdgeInsets.all(Dimens.outerPadding),
             backgroundColor: AppColors.violet20,
             foregroundColor: AppTheme.primarySwatch,
-            textStyle: GoogleFonts.poppinsTextTheme().bodyText1,
+            textStyle: GoogleFonts.poppinsTextTheme().bodyLarge,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(Dimens.radiusButton),
             ),
@@ -111,15 +109,29 @@ class _AppView extends StatelessWidget with WidgetsBindingObserver {
 
   void _onUserAuthenticated(AccountUser user, BuildContext context) {
     context.read<AccountCubit>().backupAccountData(Account(user: user));
+    _completeOnboarding(context);
+  }
+
+  void _completeOnboarding(BuildContext context) {
     final appSettingsCubit = context.read<AppSettingsCubit>();
-    appSettingsCubit.state.whenOrNull(
-      loaded: (settings) {
-        if (settings.onboardingStatus != OnboardingStatus.completed) {
+    appSettingsCubit.stream
+        .where(_onboardingIsNotCompleted)
+        .listen((appSettingsState) {
+      appSettingsState.whenOrNull(
+        loaded: (settings) {
           appSettingsCubit.saveAppSettings(
             settings.copyWith(onboardingStatus: OnboardingStatus.completed),
           );
-        }
-      },
+        },
+      );
+    });
+  }
+
+  bool _onboardingIsNotCompleted(AppSettingsState state) {
+    return state.maybeWhen(
+      loaded: (loadedSettings) =>
+          loadedSettings.onboardingStatus != OnboardingStatus.completed,
+      orElse: () => false,
     );
   }
 }

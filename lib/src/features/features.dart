@@ -2,6 +2,7 @@
 
 library features;
 
+export 'analytics/data/models/analytics_event.dart';
 export 'authentication/data/models/account_credential.dart';
 export 'authentication/data/models/account_user.dart';
 export 'authentication/data/sources/authentication_data_source.dart';
@@ -25,9 +26,13 @@ export 'home/presentation/pages/home_page.dart';
 export 'main/logic/cubit/bottom_tab_navigation_cubit.dart';
 export 'main/logic/entities/bottom_bar_tab.dart';
 export 'main/presentation/pages/main_page.dart';
+export 'notifications/data/models/notification_model.dart';
+export 'notifications/data/sources/notifications_data_source.dart';
 export 'notifications/logic/cubit/notification_permission_cubit.dart';
+export 'notifications/logic/cubit/notifications_cubit.dart';
 export 'notifications/logic/repositories/notifications_permission_repository.dart';
 export 'notifications/logic/repositories/notifications_permission_repository_impl.dart';
+export 'notifications/logic/repositories/notifications_repository.dart';
 export 'onboarding/data/models/app_settings.dart';
 export 'onboarding/data/sources/app_settings_data_source.dart';
 export 'onboarding/data/sources/app_settings_local_data_source.dart';

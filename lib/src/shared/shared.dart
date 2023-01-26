@@ -2,6 +2,7 @@
 
 library shared;
 
+export 'configs/app_config.dart';
 export 'db/database.dart';
 export 'db/exceptions.dart';
 export 'db/hive/hive_database.dart';
@@ -15,11 +16,13 @@ export 'presentation/widgets/centered_progress_indicator.dart';
 export 'presentation/widgets/custom_indexed_stack.dart';
 export 'presentation/widgets/injected_bloc_provider.dart';
 export 'presentation/widgets/notification_flushbar.dart';
+export 'presentation/widgets/root_context_builder.dart';
 export 'utils/app_images.dart';
 export 'utils/consts/popular_currencies.dart';
 export 'utils/exceptions.dart';
 export 'utils/extensions/bloc_ext.dart';
 export 'utils/extensions/context_ext.dart';
+export 'utils/helpers.dart';
 export 'utils/styling/app_colors.dart';
 export 'utils/styling/app_theme.dart';
 export 'utils/styling/dimens.dart';

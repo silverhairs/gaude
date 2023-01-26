@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:gaude/src/app/app.dart';
 import 'package:gaude/src/di/inject.dart';
 import 'package:gaude/src/features/features.dart';
-import 'package:get_it/get_it.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:logger/logger.dart';
 

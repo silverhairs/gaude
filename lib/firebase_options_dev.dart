@@ -26,10 +26,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -58,5 +55,18 @@ class DefaultFirebaseOptions {
     messagingSenderId: '691524081150',
     projectId: 'gaude-expenses',
     storageBucket: 'gaude-expenses.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyBIP9tYOdFh4ix-GccqhrtZm4iHJ_HVNY8',
+    appId: '1:691524081150:ios:8fdec88a163165e18a5caf',
+    messagingSenderId: '691524081150',
+    projectId: 'gaude-expenses',
+    storageBucket: 'gaude-expenses.appspot.com',
+    androidClientId:
+        '691524081150-haaggn0a7si71ut98licjqdgt206uv6f.apps.googleusercontent.com',
+    iosClientId:
+        '691524081150-hoah8h3dia2cmoemkaad8gf5rgum13v0.apps.googleusercontent.com',
+    iosBundleId: 'dev.silverhairs.gaude',
   );
 }

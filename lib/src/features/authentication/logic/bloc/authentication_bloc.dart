@@ -43,7 +43,7 @@ class AuthenticationBloc
     }
     emit(state);
     if (state is _Failure) {
-      addError(state.failure.error, state.failure.stackTrace);
+      addFailure(state.failure);
     }
   }
 

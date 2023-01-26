@@ -117,7 +117,7 @@ class _NotificationsTogglerList extends StatelessWidget {
           title: Text(_getNotificationLabel(notification)),
           subtitle: Text(
             _getNotificationDescription(notification),
-            style: context.textTheme.caption!.apply(color: Colors.grey),
+            style: context.textTheme.bodySmall!.apply(color: Colors.grey),
           ),
           trailing: CupertinoSwitch(
             activeColor: context.theme.primaryColor,

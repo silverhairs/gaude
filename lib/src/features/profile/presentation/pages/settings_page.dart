@@ -108,7 +108,7 @@ class _SettingListTile extends StatelessWidget {
                   children: [
                     Text(
                       trailingText!,
-                      style: context.textTheme.caption?.apply(
+                      style: context.textTheme.bodySmall?.apply(
                         color: Colors.grey,
                       ),
                     ),

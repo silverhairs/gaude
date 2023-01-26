@@ -21,14 +21,14 @@ class LoginPage extends StatelessWidget {
               textAlign: TextAlign.center,
               style: Theme.of(context)
                   .textTheme
-                  .headline5!
+                  .headlineSmall!
                   .copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: Dimens.outerPadding),
             Text(
               'Become your own money manager and make every cent count',
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: Dimens.outerPadding),
             Padding(

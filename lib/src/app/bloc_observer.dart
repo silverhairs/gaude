@@ -6,7 +6,7 @@ import 'package:gaude/src/shared/utils/exceptions.dart';
 import 'package:logger/logger.dart';
 
 class LogBlocObserver extends BlocObserver {
-  LogBlocObserver() : _logger = Logger();
+  LogBlocObserver() : _logger = inject<Logger>();
   final Logger _logger;
 
   @override
