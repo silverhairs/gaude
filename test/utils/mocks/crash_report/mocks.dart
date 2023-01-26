@@ -5,7 +5,7 @@ import 'package:mocktail/mocktail.dart';
 
 import '../interfaces.dart';
 
-class MockCrashReportRepository extends Mock implements CrashReportRepository {}
+class MockCrashReportRepository extends Mock implements CrashReportService {}
 
 class CrashReportRepositoryStubs implements StubsManager {
   CrashReportRepositoryStubs() {
@@ -33,7 +33,7 @@ class CrashReportRepositoryStubs implements StubsManager {
     }
   }
 
-  static final CrashReportRepository _repository = MockCrashReportRepository();
+  static final CrashReportService _repository = MockCrashReportRepository();
 
   void successfullExceptionRecord() {
     when(() => _repository.recordException(any())).thenAnswer(

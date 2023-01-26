@@ -21,12 +21,12 @@ Future<void> main() async {
   Injector.configure(
     AppConfig(
       logLevel: AppConfig.getLogLevelFromEnvironment(
-        defaultLevel: Level.nothing,
+        defaultLevel: Level.verbose,
       ),
     ),
   );
 
-  final auditor = inject<CrashReportRepository>();
+  final auditor = inject<CrashReportService>();
   FlutterError.onError = auditor.recordFlutterError;
   Bloc.observer = LogBlocObserver();
   await _setupLocalDatabase();
@@ -41,7 +41,10 @@ Future<void> _setupLocalDatabase() async {
       final connection = db as ExternalConnection;
       await connection.start();
     } catch (e, s) {
-      await inject<CrashReportRepository>().recordException(Failure(e, s));
+      await inject<CrashReportService>().recordException(
+        Failure(e, s),
+        isFatal: true,
+      );
     }
   }
 }

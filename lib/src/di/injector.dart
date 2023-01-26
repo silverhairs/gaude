@@ -24,7 +24,7 @@ abstract class Injector {
     CrashReportDataSource,
     from: CrashReportCrashlyticsDataSource,
   )
-  @Register.singleton(CrashReportRepository, from: CrashReportRepositoryImpl)
+  @Register.singleton(CrashReportService, from: CrashReportServiceImpl)
   @Register.singleton(
     AccountCredentialDataSource,
     from: GoogleAccountCredentialDataSource,

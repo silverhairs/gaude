@@ -97,14 +97,15 @@ class _ProfileView extends StatelessWidget {
         backgroundColor: Colors.transparent,
         context: rootContext,
         builder: (context) => BottomSheet(
+          enableDrag: false,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.horizontal(
-              left: Radius.circular(16),
-              right: Radius.circular(16),
+              left: Radius.circular(Dimens.outerPadding),
+              right: Radius.circular(Dimens.outerPadding),
             ),
           ),
           constraints: const BoxConstraints(
-            maxHeight: 132,
+            maxHeight: 128,
           ),
           onClosing: Navigator.of(context).pop,
           builder: (context) => Padding(
@@ -114,7 +115,7 @@ class _ProfileView extends StatelessWidget {
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
                   'Logout',

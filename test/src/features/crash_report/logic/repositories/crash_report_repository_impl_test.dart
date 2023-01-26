@@ -11,7 +11,7 @@ class MockCrashReportDataSource extends Mock implements CrashReportDataSource {}
 class MockLogger extends Mock implements Logger {}
 
 void main() {
-  late final CrashReportRepository subject;
+  late final CrashReportService subject;
   late final CrashReportDataSource dataSource;
   late final Logger logger;
   final failure = Failure(
@@ -26,7 +26,7 @@ void main() {
   setUpAll(() {
     dataSource = MockCrashReportDataSource();
     logger = MockLogger();
-    subject = CrashReportRepositoryImpl(dataSource: dataSource, logger: logger);
+    subject = CrashReportServiceImpl(dataSource: dataSource, logger: logger);
 
     registerFallbackValue(failure);
     registerFallbackValue(failure.error);

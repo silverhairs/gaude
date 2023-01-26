@@ -25,9 +25,8 @@ class _$Injector extends Injector {
       ..registerSingleton<CrashReportDataSource>((c) =>
           CrashReportCrashlyticsDataSource(
               logger: c<Logger>(), crashlytics: c<FirebaseCrashlytics>()))
-      ..registerSingleton<CrashReportRepository>((c) =>
-          CrashReportRepositoryImpl(
-              dataSource: c<CrashReportDataSource>(), logger: c<Logger>()))
+      ..registerSingleton<CrashReportService>((c) => CrashReportServiceImpl(
+          dataSource: c<CrashReportDataSource>(), logger: c<Logger>()))
       ..registerSingleton<AccountCredentialDataSource>(
           (c) => GoogleAccountCredentialDataSource(c<GoogleSignIn>()))
       ..registerSingleton<AccountCredentialRepository>((c) =>

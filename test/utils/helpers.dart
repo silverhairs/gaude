@@ -117,7 +117,7 @@ void _configureInjector({List<StubsManager> stubs = const []}) {
   );
 
   // Crash Report
-  container.registerSingleton<CrashReportRepository>(
+  container.registerSingleton<CrashReportService>(
     MockCrashReportRepository(),
   );
 

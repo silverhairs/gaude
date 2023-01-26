@@ -15,8 +15,7 @@ class LogBlocObserver extends BlocObserver {
         ? error.toFailure()
         : Failure(error, stackTrace);
 
-    inject<CrashReportRepository>().recordException(failure);
-    _logger.e(bloc, failure.error, failure.stackTrace);
+    inject<CrashReportService>().recordException(failure);
     super.onError(bloc, error, stackTrace);
   }
 

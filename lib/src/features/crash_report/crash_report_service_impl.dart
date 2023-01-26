@@ -5,8 +5,8 @@ import 'package:gaude/src/features/features.dart';
 import 'package:gaude/src/shared/shared.dart';
 import 'package:logger/logger.dart';
 
-class CrashReportRepositoryImpl implements CrashReportRepository {
-  const CrashReportRepositoryImpl({
+class CrashReportServiceImpl implements CrashReportService {
+  const CrashReportServiceImpl({
     required CrashReportDataSource dataSource,
     required Logger logger,
   })  : _source = dataSource,
