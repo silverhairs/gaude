@@ -8,8 +8,10 @@ import 'package:gaude/src/shared/utils/exceptions.dart';
 class AccountFirestoreDataSource implements AccountDataSource {
   AccountFirestoreDataSource(FirebaseFirestore firestore)
       : _firestore = firestore {
-    _collection = _firestore.collection('accounts');
+    _collection = _firestore.collection(collectionName);
   }
+
+  static const collectionName = 'accounts';
 
   final FirebaseFirestore _firestore;
   late final CollectionReference _collection;

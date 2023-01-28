@@ -1,140 +1,38 @@
-import 'package:flutter/foundation.dart';
+import 'dart:async';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:gaude/src/app/app.dart';
-import 'package:gaude/src/di/inject.dart';
+import 'package:gaude/src/app/bloc_observer.dart';
 import 'package:gaude/src/features/features.dart';
-import 'package:local_auth/local_auth.dart';
-import 'package:logger/logger.dart';
 
-import 'mocks/authentication/mocks.dart';
-import 'mocks/crash_report/mocks.dart';
-import 'mocks/interfaces.dart';
-import 'mocks/onboarding/mocks.dart';
-import 'mocks/profile/mocks.dart';
-import 'mocks/security/mocks.dart';
+import 'injector.dart';
 
-Future<void> openMainPage(WidgetTester tester) async {
-  await startAppWithMocks(
-    runner: () async => await tester.pumpWidget(const App()),
-    stubs: [CrashReportRepositoryStubs()],
-  );
+typedef FutureOrCallback = FutureOr<void> Function();
 
-  await tester.pumpAndSettle(const Duration(seconds: 1));
-}
-
-Future<void> startAppWithMocks({
-  AsyncCallback? runner,
-  WidgetTester? tester,
-  bool authenticated = true,
-  List<StubsManager> stubs = const [],
+/// A helper function that calls the passed [callback] in a scope where all the
+/// dependencies from the IOC container are provided.
+///
+/// This function is meant to be called from within a test case. Once the test
+/// is finished, the dependencies are disposed.
+///
+/// The [account] parameter is used to configure the account and authentication
+/// modules. Depending on the value, the authentication module will
+/// emit either [AuthenticationState.authenticated] or [AuthenticationState.unauthenticated].
+///
+/// The [account] parameter also configures all modules that require access to the
+/// account data.
+///
+/// The [enableLogging] parameter is used to enable logging of all blocs.
+Future<void> injectorScope(
+  FutureOrCallback callback, {
+  Account? account,
+  bool enableLogging = false,
+  bool signedIn = false,
 }) async {
-  assert(
-    !(runner == null && tester == null),
-    'Either runner or tester must be provided',
-  );
-  try {
-    _configureInjector(stubs: stubs);
-    // ignore: empty_catches
-  } on ArgumentError {
-    // An ArgumentError is thrown when the injector is already configured.
+  TestInjector.configure(account: account, signedIn: signedIn);
+  if (enableLogging) {
+    Bloc.observer = LogBlocObserver();
   }
-  if (!authenticated) {
-    AppSettingsDataSourceStubs(inject()).onboardingNotCompleted();
-    AuthenticationRepositoryStubs(inject()).authStateChangesWithNull();
-  } else {
-    AppSettingsDataSourceStubs(inject()).onboardingCompleted();
-    AuthenticationRepositoryStubs(inject()).authStateChangesWithAccount();
-  }
-  AccountDataSourceStubs(inject()).setupStubs();
-  LocalAuthenticationStubs(inject()).setupStubs();
-  if (runner != null) {
-    await runner();
-    return;
-  }
-  await tester!.pumpWidget(const App());
-  await tester.pumpAndSettle(const Duration(seconds: 1));
-}
-
-/// Configures the injector for testing.
-///
-/// The configurations in this function must stay in this order. Moving one registration
-/// to another place may cause unresolved dependency exceptions in the test. When
-/// registering a new depedenency, make sure you are not doing it after another
-/// dependency that depends on it. For example:
-///
-/// ```dart
-/// // Considering the two classes A and B such as:
-/// class A {
-///  const A(this.b);
-///  final B b;
-/// }
-///
-/// class B {}
-///
-/// // When registering A and B in [_configureInjector], the order must be:
-/// container
-///   ..registerSingleton<B>(B())
-///   ..registerSingleton<A>(A(inject()));
-/// ```
-///
-/// Another thing to keep in mind is to always register [Bloc] and [Cubit] objects
-/// as factories so that a new instance gets created for each test, this will prevent running
-/// into issues where a bloc or cubit gets closed by a previous test and is not able to
-/// emit new states.
-///
-void _configureInjector({List<StubsManager> stubs = const []}) {
-  final container = GetIt.instance;
-
-  container
-    ..registerFactory(Logger.new)
-    ..registerFactory(BottomTabNavigationCubit.new);
-
-  // Settings
-  container
-    ..registerSingleton<AppSettingsDataSource>(AppSettingsMapBasedDataSource())
-    ..registerSingleton<AppSettingsRepository>(
-      AppSettingsRepositoryImpl(inject()),
-    )
-    ..registerFactory(() => AppSettingsCubit(inject()));
-
-// Authentication
-  container
-    ..registerSingleton<AuthenticationRepository>(
-      MockAuthenticationRepository(),
-    )
-    ..registerSingleton<AccountCredentialRepository>(
-      MockAccountCredentialRepository(),
-    );
-
-  AccountCredentialRepositoryStubs(inject()).setupStubs();
-  AuthenticationRepositoryStubs(inject()).setupStubs();
-  container.registerFactory(
-    () => AuthenticationBloc(
-      authenticationRepository: inject(),
-      accountCredentialRepository: inject(),
-      appSettingsRepository: inject(),
-    ),
-  );
-
-  // Crash Report
-  container.registerSingleton<CrashReportService>(
-    MockCrashReportRepository(),
-  );
-
-  // Account
-  container
-    ..registerSingleton<AccountDataSource>(MockAccountDataSource())
-    ..registerSingleton<AccountRepository>(AccountRepositoryImpl(inject()))
-    ..registerFactory(() => AccountCubit(inject()));
-
-  // AppLock
-  container
-    ..registerSingleton<LocalAuthentication>(MockLocalAuthentication())
-    ..registerSingleton<AppLockRepository>(AppLockRepositoryImpl(inject()))
-    ..registerLazySingleton(() => AppLockCubit(inject()));
-
-  // The statement below should always be at the end of the function
-  for (var stub in stubs) {
-    stub.setupStubs();
-  }
+  await callback();
+  addTearDown(TestInjector.dispose);
 }

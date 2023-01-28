@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gaude/src/features/features.dart';
 import 'package:gaude/src/shared/shared.dart';
+import 'package:ionicons/ionicons.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.pages});
@@ -124,7 +125,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                     // TODO: Implement me.
                     throw UnimplementedError('Add new expense button pressed');
                   },
-                  child: const Icon(Icons.add, color: AppColors.light),
+                  child: const Icon(Ionicons.add, color: AppColors.light),
                 ),
               ),
             ),
