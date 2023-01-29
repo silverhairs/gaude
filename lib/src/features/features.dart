@@ -2,7 +2,6 @@
 
 library features;
 
-export 'analytics/data/models/analytics_event.dart';
 export 'authentication/data/models/account_credential.dart';
 export 'authentication/data/models/account_user.dart';
 export 'authentication/data/sources/authentication_data_source.dart';
