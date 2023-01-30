@@ -62,10 +62,7 @@ The only firebase services currently used by the app are Firebase Auth, Crashlyt
 
 You can enable the firebase emulator to use firebase services locally. To do that, you need to install the firebase emulator suite and run it before running the app. You can find more information about how to do that [here](https://firebase.google.com/docs/emulator-suite).
 
-The port numbers used by the firebase emulator are:
-
-- Firestore: 8080
-- Authentication: 9099
+The port numbers used by the firebase emulator are availble in the [firebase.json](firebase.json) file.
 
 ## Modules
 
