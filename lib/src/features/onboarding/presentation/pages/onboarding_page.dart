@@ -51,7 +51,9 @@ class OnboardingPage extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       child: const Text("Let's Go"),
-                      onPressed: () {},
+                      onPressed: () {
+                        //TODO: Implement user onboarding
+                      },
                     ),
                   ),
                 ),

@@ -1,7 +1,6 @@
 import 'package:gaude/src/shared/shared.dart';
-import 'package:mocktail/mocktail.dart';
 
-class MockOpenAppSettings extends Mock implements OpenAppSettings {
+class MockOpenAppSettings implements OpenAppSettings {
   bool _isOpen = false;
 
   @override

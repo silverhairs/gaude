@@ -1,4 +1,9 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,11 +18,12 @@ import 'src/app/app.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([
+  await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   Injector.configure(
     AppConfig(
       logLevel: AppConfig.getLogLevelFromEnvironment(
@@ -46,5 +52,23 @@ Future<void> _setupLocalDatabase() async {
         isFatal: true,
       );
     }
+  }
+}
+
+Future<void> useFirebaseEmulator({
+  int authPort = 9099,
+  int firestorePort = 8080,
+  String? host,
+}) async {
+  if (kDebugMode) {
+    final localhost = Platform.isAndroid ? '10.0.2.2' : 'localhost';
+    inject<FirebaseFirestore>().useFirestoreEmulator(
+      host ?? localhost,
+      firestorePort,
+    );
+    await inject<FirebaseAuth>().useAuthEmulator(
+      host ?? localhost,
+      authPort,
+    );
   }
 }

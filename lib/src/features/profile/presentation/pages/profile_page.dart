@@ -55,7 +55,7 @@ class _ProfileView extends StatelessWidget {
               child: _ProfileTilesList(
                 children: [
                   ProfileListTile(
-                    key: const ValueKey('account-profile-key'),
+                    key: ProfilePageKeys.accountCallToActionKey,
                     onTap: () {
                       // TODO: Implement me
                     },
@@ -63,13 +63,13 @@ class _ProfileView extends StatelessWidget {
                     icon: Ionicons.wallet_outline,
                   ),
                   ProfileListTile(
-                    key: const ValueKey('settings-profile-key'),
+                    key: ProfilePageKeys.settingsCallToActionKey,
                     onTap: () => context.navigateTo(const SettingsPage()),
                     title: 'Settings',
                     icon: Ionicons.settings_outline,
                   ),
                   ProfileListTile(
-                    key: const ValueKey('data-profile-key'),
+                    key: ProfilePageKeys.exportDataCallToActionKey,
                     onTap: () {
                       //TODO: Implement me
                     },
@@ -77,6 +77,7 @@ class _ProfileView extends StatelessWidget {
                     icon: Ionicons.document_attach_outline,
                   ),
                   ProfileListTile(
+                    key: ProfilePageKeys.logoutCallToActionKey,
                     onTap: () => _onLogout(context),
                     title: 'Logout',
                     icon: Ionicons.log_out_outline,
@@ -105,7 +106,7 @@ class _ProfileView extends StatelessWidget {
             ),
           ),
           constraints: const BoxConstraints(
-            maxHeight: 128,
+            maxHeight: 140,
           ),
           onClosing: Navigator.of(context).pop,
           builder: (context) => Padding(
@@ -114,13 +115,27 @@ class _ProfileView extends StatelessWidget {
               vertical: Dimens.innerPadding,
             ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text(
-                  'Logout',
-                  style: context.textTheme.titleMedium,
-                  textAlign: TextAlign.center,
+                Container(
+                  height: 4,
+                  constraints: const BoxConstraints(
+                    maxWidth: kMinInteractiveDimension,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(Dimens.radiusButton),
+                    color: AppColors.blue20,
+                  ),
+                ),
+                const SizedBox(height: Dimens.innerPadding),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: Dimens.innerPadding,
+                  ),
+                  child: Text(
+                    'Logout',
+                    style: context.textTheme.titleMedium,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
@@ -144,7 +159,7 @@ class _ProfileView extends StatelessWidget {
                     (child) {
                       if (child is ButtonStyleButton) {
                         return Expanded(
-                          key: ValueKey(child.hashCode),
+                          key: child.key,
                           child: child,
                         );
                       }
@@ -184,6 +199,7 @@ class _ProfilePageHeader extends StatelessWidget {
                 ),
               ),
               child: CircleAvatar(
+                key: ProfilePageKeys.profileImageKey,
                 radius: kMinInteractiveDimension,
                 backgroundImage: CachedNetworkImageProvider(
                   user.photoUrl,
@@ -240,4 +256,21 @@ class _ProfileTilesList extends StatelessWidget {
       },
     );
   }
+}
+
+@visibleForTesting
+class ProfilePageKeys {
+  static const profileImageKey = ValueKey('profile-page-user-image-key');
+  static const accountCallToActionKey = ValueKey('profile-page-account-key');
+  static const settingsCallToActionKey = ValueKey('profile-page-settings-key');
+  static const exportDataCallToActionKey = ValueKey('profile-page-export-key');
+  static const logoutCallToActionKey = ValueKey('profile-page-logout-key');
+
+  static List<ValueKey> get all => const [
+        profileImageKey,
+        accountCallToActionKey,
+        settingsCallToActionKey,
+        exportDataCallToActionKey,
+        logoutCallToActionKey,
+      ];
 }

@@ -7,12 +7,6 @@ import 'package:ionicons/ionicons.dart';
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
-  static const currencyTileKey = 'currency';
-  static const languageTileKey = 'language';
-  static const brightnessTileKey = 'theme';
-  static const securityTileKey = 'security';
-  static const notificationsTileKey = 'notifications';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +25,7 @@ class SettingsPage extends StatelessWidget {
               children: [
                 const SizedBox(height: Dimens.outerPadding),
                 _SettingListTile(
-                  key: const ValueKey(currencyTileKey),
+                  key: SettingsPageKeys.currencyTileKey,
                   title: 'Currency',
                   onTap: () => context.navigateTo(SettingsCurrencyPage(
                     settings: account.settings!,
@@ -40,7 +34,7 @@ class SettingsPage extends StatelessWidget {
                 ),
                 const SizedBox(height: Dimens.outerPadding),
                 _SettingListTile(
-                  key: const ValueKey(languageTileKey),
+                  key: SettingsPageKeys.languageTileKey,
                   isEnabled: false,
                   title: 'Language',
                   onTap: () {},
@@ -48,21 +42,21 @@ class SettingsPage extends StatelessWidget {
                 const SizedBox(height: Dimens.outerPadding),
                 _SettingListTile(
                   isEnabled: false,
-                  key: const ValueKey(brightnessTileKey),
+                  key: SettingsPageKeys.brightnessTileKey,
                   title: 'Brightness',
                   trailingText: account.settings!.brightness.name,
                   onTap: () {},
                 ),
                 const SizedBox(height: Dimens.outerPadding),
                 _SettingListTile(
-                  key: const ValueKey(securityTileKey),
+                  key: SettingsPageKeys.securityTileKey,
                   title: 'Security',
                   trailingText: account.settings!.security.name,
                   onTap: () {},
                 ),
                 const SizedBox(height: Dimens.outerPadding),
                 _SettingListTile(
-                  key: const ValueKey(notificationsTileKey),
+                  key: SettingsPageKeys.notificationsTileKey,
                   title: 'Notifications',
                   onTap: () => context.navigateTo(
                     SettingsNotificationsPage(settings: account.settings!),
@@ -108,7 +102,7 @@ class _SettingListTile extends StatelessWidget {
                   children: [
                     Text(
                       trailingText!,
-                      style: context.textTheme.bodySmall?.apply(
+                      style: context.textTheme.bodySmall?.copyWith(
                         color: Colors.grey,
                       ),
                     ),
@@ -119,4 +113,21 @@ class _SettingListTile extends StatelessWidget {
       ),
     );
   }
+}
+
+@visibleForTesting
+class SettingsPageKeys {
+  static const currencyTileKey = ValueKey('settings-currency');
+  static const languageTileKey = ValueKey('settings-language');
+  static const brightnessTileKey = ValueKey('settings-theme');
+  static const securityTileKey = ValueKey('settings-security');
+  static const notificationsTileKey = ValueKey('settings-notifications');
+
+  static List<ValueKey> get all => const [
+        currencyTileKey,
+        languageTileKey,
+        brightnessTileKey,
+        securityTileKey,
+        notificationsTileKey,
+      ];
 }

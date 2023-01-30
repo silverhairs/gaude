@@ -19,8 +19,10 @@ export 'authentication/presentation/widgets/authentication_success_listener.dart
 export 'budget/presentation/pages/budget_page.dart';
 export 'crash_report/crash_report_service.dart';
 export 'crash_report/crash_report_service_impl.dart';
-export 'crash_report/data/sources/crash_report_crashlytics_data_source.dart';
 export 'crash_report/data/sources/crash_report_data_source.dart';
+export 'crash_report/data/sources/crashlytics/crash_report_crashlytics_data_source.dart';
+export 'crash_report/data/sources/sentry/crash_report_sentry_data_source.dart';
+export 'crash_report/data/sources/sentry/sentry_wrapper.dart';
 export 'home/presentation/pages/home_page.dart';
 export 'main/logic/cubit/bottom_tab_navigation_cubit.dart';
 export 'main/logic/entities/bottom_bar_tab.dart';

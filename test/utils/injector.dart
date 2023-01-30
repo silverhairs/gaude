@@ -13,7 +13,6 @@ import 'package:local_auth/local_auth.dart';
 import 'package:logger/logger.dart';
 
 import 'mocks/app_settings.dart';
-import 'mocks/data.dart';
 import 'mocks/database.dart';
 import 'mocks/firebase.dart';
 
@@ -59,37 +58,22 @@ abstract class TestInjector {
     from: NotificationsPermissionRepositoryImpl,
   )
   @Register.singleton(NotificationPermissionCubit)
+  @Register.singleton(HiveInterface, from: FakeHive)
+  @Register.singleton(FirebaseCrashlytics, from: FakeCrashlytics)
+  @Register.singleton(GoogleSignIn, from: MockGoogleSignIn)
   void registerAll();
 
   static void configure({
-    Account? account,
-    bool signedIn = false,
+    required MockUser firebaseUser,
+    required bool signedIn,
   }) {
-    final activeAccount = account ?? kTestAccount;
     KiwiContainer()
-      ..registerInstance<HiveInterface>(FakeHive())
       ..registerFactory((_) => Logger())
-      ..registerInstance<FirebaseCrashlytics>(FakeCrashlytics())
-      ..registerInstance<FirebaseAuth>(
-        MockFirebaseAuth(
-          mockUser: activeAccount.getFirebaseMockUser(),
-          signedIn: signedIn,
-        ),
+      ..registerSingleton<FirebaseAuth>(
+        (_) => MockFirebaseAuth(mockUser: firebaseUser, signedIn: signedIn),
       )
-      ..registerSingleton<FirebaseFirestore>((_) {
-        if (!signedIn) {
-          return FakeFirebaseFirestore();
-        }
-        final instance = FakeFirebaseFirestore();
-        FirestoreSetup.setData(
-          instance,
-          collection: AccountFirestoreDataSource.collectionName,
-          documentId: activeAccount.user.id,
-          data: activeAccount.toJson(),
-        );
-        return instance;
-      })
-      ..registerInstance<GoogleSignIn>(MockGoogleSignIn());
+      ..registerSingleton<FirebaseFirestore>((_) => FakeFirebaseFirestore());
+
     _$TestInjector().registerAll();
   }
 

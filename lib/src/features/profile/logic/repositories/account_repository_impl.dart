@@ -24,7 +24,7 @@ class AccountRepositoryImpl implements AccountRepository {
   @override
   Future<Result<Account?>> getAccount(String id) async {
     try {
-      return Result(await _source.getAccount(id).timeout(_timeout));
+      return Result(await _source.getAccount(id));
     } on DataSourceException catch (e, s) {
       return Result.failure(Failure(e, s));
     }
@@ -33,7 +33,7 @@ class AccountRepositoryImpl implements AccountRepository {
   @override
   Future<Result<void>> saveAccount(Account account) async {
     try {
-      return Result(await _source.saveAccount(account).timeout(_timeout));
+      return Result(await _source.saveAccount(account));
     } catch (e, s) {
       return Result.failure(Failure(e, s));
     }

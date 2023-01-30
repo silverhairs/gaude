@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gaude/src/features/features.dart';
@@ -35,10 +33,9 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    _unlockApp();
+
     if (state == AppLifecycleState.resumed) {
       context.read<NotificationPermissionCubit>().getPermissionStatus();
-      // _unlockApp();
     }
   }
 
@@ -86,10 +83,9 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                         .map(
                           (tab) => Expanded(
                             key: ValueKey(tab),
-                            child: _buildTabButton(
+                            child: _TabItemButton(
                               tab: tab,
                               state: state,
-                              context: context,
                             ),
                           ),
                         ),
@@ -100,10 +96,9 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                         .map(
                           (tab) => Expanded(
                             key: ValueKey(tab),
-                            child: _buildTabButton(
+                            child: _TabItemButton(
                               tab: tab,
                               state: state,
-                              context: context,
                             ),
                           ),
                         ),
@@ -135,16 +130,6 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
     );
   }
 
-  void _unlockApp() {
-    if (Platform.isIOS) return;
-    final appSettings = context.read<AppSettingsCubit>();
-    appSettings.state.whenOrNull(loaded: (settings) {
-      if (settings.onboardingStatus == OnboardingStatus.completed) {
-        context.read<AppLockCubit>().authenticate();
-      }
-    });
-  }
-
   bool _activeTabIsTappedMoreThanOnce(
     BottomTabNavigationState previousState,
     BottomTabNavigationState currentState,
@@ -163,11 +148,36 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
     }
   }
 
-  Widget _buildTabButton({
-    required BottomBarTab tab,
-    required BottomTabNavigationState state,
-    required BuildContext context,
-  }) {
+  MapEntry<BottomBarTab, Widget> _wrapWithNavigator(
+    BottomBarTab tab,
+    Widget child,
+  ) =>
+      MapEntry(
+        tab,
+        Navigator(
+          key: _navigatorKeys[tab]!,
+          onGenerateRoute: (settings) {
+            return MaterialPageRoute(
+              settings: settings,
+              builder: (context) => child,
+            );
+          },
+        ),
+      );
+}
+
+class _TabItemButton extends StatelessWidget {
+  const _TabItemButton({
+    Key? key,
+    required this.tab,
+    required this.state,
+  }) : super(key: key);
+
+  final BottomBarTab tab;
+  final BottomTabNavigationState state;
+
+  @override
+  Widget build(BuildContext context) {
     final width = context.screenSize.width / 5;
     return InkWell(
       splashColor: AppColors.violet20,
@@ -214,21 +224,4 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
       ),
     );
   }
-
-  MapEntry<BottomBarTab, Widget> _wrapWithNavigator(
-    BottomBarTab tab,
-    Widget child,
-  ) =>
-      MapEntry(
-        tab,
-        Navigator(
-          key: _navigatorKeys[tab]!,
-          onGenerateRoute: (settings) {
-            return MaterialPageRoute(
-              settings: settings,
-              builder: (context) => child,
-            );
-          },
-        ),
-      );
 }

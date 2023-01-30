@@ -44,10 +44,13 @@ class _$TestInjector extends TestInjector {
       ..registerSingleton<AccountRepository>(
           (c) => AccountRepositoryImpl(c<AccountDataSource>()))
       ..registerSingleton((c) => AccountCubit(c<AccountRepository>()))
-      ..registerSingleton((c) => OpenAppSettings())
+      ..registerSingleton<OpenAppSettings>((c) => MockOpenAppSettings())
       ..registerSingleton<NotificationsPermissionRepository>(
           (c) => NotificationsPermissionRepositoryImpl(c<OpenAppSettings>()))
       ..registerSingleton((c) =>
-          NotificationPermissionCubit(c<NotificationsPermissionRepository>()));
+          NotificationPermissionCubit(c<NotificationsPermissionRepository>()))
+      ..registerSingleton<HiveInterface>((c) => FakeHive())
+      ..registerSingleton<FirebaseCrashlytics>((c) => FakeCrashlytics())
+      ..registerSingleton<GoogleSignIn>((c) => MockGoogleSignIn());
   }
 }

@@ -6,6 +6,7 @@ import 'package:ionicons/ionicons.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
+  @visibleForTesting
   static const notificationsIconKey = ValueKey('NOTIFICATIONS_ICON');
 
   @override

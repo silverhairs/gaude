@@ -25,11 +25,7 @@ class _SettingsCurrencyPageState extends State<SettingsCurrencyPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        await context.read<AccountCubit>().updateSettings(
-              widget.settings.copyWith(
-                currency: _selectedCurrency,
-              ),
-            );
+        await _updateCurrency();
         return true;
       },
       child: Scaffold(
@@ -57,6 +53,12 @@ class _SettingsCurrencyPageState extends State<SettingsCurrencyPage> {
         ),
       ),
     );
+  }
+
+  Future<void> _updateCurrency() async {
+    await context.read<AccountCubit>().updateSettings(
+          widget.settings.copyWith(currency: _selectedCurrency),
+        );
   }
 
   List<Currency> get currencies => [

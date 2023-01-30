@@ -19,6 +19,7 @@ export 'presentation/widgets/notification_flushbar.dart';
 export 'presentation/widgets/root_context_builder.dart';
 export 'utils/app_images.dart';
 export 'utils/consts/popular_currencies.dart';
+export 'utils/debouncer.dart';
 export 'utils/exceptions.dart';
 export 'utils/extensions/bloc_ext.dart';
 export 'utils/extensions/context_ext.dart';
