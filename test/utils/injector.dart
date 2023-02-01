@@ -6,7 +6,6 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:gaude/src/features/features.dart';
 import 'package:gaude/src/shared/shared.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:google_sign_in_mocks/google_sign_in_mocks.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:local_auth/local_auth.dart';
